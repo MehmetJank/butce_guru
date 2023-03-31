@@ -13,7 +13,7 @@ class _WidgetTestScreenState extends State<WidgetTestScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Widget Test Screen'),
+          title: const Text('Screen Test Screen'),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -25,9 +25,9 @@ class _WidgetTestScreenState extends State<WidgetTestScreen> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/expenses');
+                        Navigator.pushNamed(context, '/expense/add');
                       },
-                      child: const Text('Expenses Add'),
+                      child: const Text('Test Expense Add'),
                     ),
                     const SizedBox(
                       width: 8.0,
@@ -36,7 +36,7 @@ class _WidgetTestScreenState extends State<WidgetTestScreen> {
                       onPressed: () {
                         Navigator.pushNamed(context, '/expenses/list');
                       },
-                      child: const Text('Expenses List'),
+                      child: const Text('Test Expenses List'),
                     ),
                   ],
                 ),
@@ -48,9 +48,9 @@ class _WidgetTestScreenState extends State<WidgetTestScreen> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/revenues');
+                        Navigator.pushNamed(context, '/revenue/add');
                       },
-                      child: const Text('Incomes Add'),
+                      child: const Text('Test Income Add'),
                     ),
                     const SizedBox(
                       width: 8.0,
@@ -59,21 +59,20 @@ class _WidgetTestScreenState extends State<WidgetTestScreen> {
                       onPressed: () {
                         // Navigator.pushNamed(context, '/expenses');
                       },
-                      child: const Text('Incomes List'),
+                      child: const Text('Test Incomes List'),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 8.0,
-                ),
                 const SizedBox(height: 8.0),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                  ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/test');
+                    Navigator.pushNamed(context, '/expenses/final');
                   },
-                  child: const Text('Test Screen'),
+                  child: const Text('Test Expenses Final'),
                 ),
-                const SizedBox(height: 8.0),
               ],
             ),
           ),

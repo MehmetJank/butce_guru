@@ -1,22 +1,22 @@
 import 'dart:ui';
 
 import 'package:butce_guru/database/expenses.dart';
-import 'package:butce_guru/widgets/my_drop_down_button.dart';
-import 'package:butce_guru/widgets/my_text_form_field.dart';
+import 'package:butce_guru/widgets/custom_drop_down_button.dart';
+import 'package:butce_guru/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:isar/isar.dart';
 
 import '../../constants/color.dart';
 
-class ExpensesAddScreen extends StatefulWidget {
-  const ExpensesAddScreen({Key? key}) : super(key: key);
+class ExpenseAddScreen extends StatefulWidget {
+  const ExpenseAddScreen({Key? key}) : super(key: key);
 
   @override
-  State<ExpensesAddScreen> createState() => _ExpensesAddScreenState();
+  State<ExpenseAddScreen> createState() => _ExpenseAddScreenState();
 }
 
-class _ExpensesAddScreenState extends State<ExpensesAddScreen> {
+class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
   late final Isar isar;
 
   final _formValues = <String, String>{};
@@ -63,7 +63,7 @@ class _ExpensesAddScreenState extends State<ExpensesAddScreen> {
     if (name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Name cannot be empty'),
+          content: Text('Gider Adi boş olamaz!'),
         ),
       );
       return;
@@ -84,6 +84,10 @@ class _ExpensesAddScreenState extends State<ExpensesAddScreen> {
         content: Text('Expense added'),
       ),
     );
+  }
+
+  void clearFormFields() {
+    _formValues.clear();
   }
 
   @override
@@ -113,7 +117,8 @@ class _ExpensesAddScreenState extends State<ExpensesAddScreen> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.pushNamed(context, '/expenses/final');
+                              isar.close();
                             },
                             icon: const Icon(
                               Icons.arrow_back,
