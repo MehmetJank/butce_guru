@@ -2,6 +2,7 @@ import 'package:butce_guru/constants/color.dart';
 import 'package:butce_guru/database/expenses.dart';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
+import 'package:provider/provider.dart';
 
 class ExpensesListScreen extends StatefulWidget {
   const ExpensesListScreen({Key? key}) : super(key: key);
@@ -14,28 +15,30 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
   late final Isar isar;
   late List<Expenses> expensesList = [];
 
-  openIsar() async {
-    isar = await Isar.open([ExpensesSchema]);
-    listExpenses();
-  }
+  // openIsar() async {
+  //   isar = await Isar.open([ExpensesSchema]);
+  //   listExpenses();
+  // }
 
-  closeIsar() async {
-    await isar.close();
-  }
+  // closeIsar() async {
+  //   await isar.close();
+  // }
 
   @override
   void initState() {
     // print("Init state methodunda isar açılıyor");
     super.initState();
-    openIsar();
+    isar = Provider.of<Isar>(context, listen: false);
+    listExpenses();
+    // openIsar();
   }
 
-  @override
-  void dispose() {
-    // print("dispose methodunda isar kapatılıyor");
-    closeIsar();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // print("dispose methodunda isar kapatılıyor");
+  //   closeIsar();
+  //   super.dispose();
+  // }
 
   listExpenses() async {
     final expenses = await isar.expenses.where().findAll();

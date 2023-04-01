@@ -6,6 +6,7 @@ import 'package:butce_guru/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:isar/isar.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/color.dart';
 
@@ -21,27 +22,28 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
 
   final _formValues = <String, String>{};
 
-  openIsar() async {
-    isar = await Isar.open([ExpensesSchema]);
-  }
+  // openIsar() async {
+  //   isar = await Isar.open([ExpensesSchema]);
+  // }
 
-  closeIsar() async {
-    await isar.close();
-  }
+  // closeIsar() async {
+  //   await isar.close();
+  // }
 
   @override
   void initState() {
     // print("Init state methodunda isar açılıyor");
     super.initState();
-    openIsar();
+    isar = Provider.of<Isar>(context, listen: false);
+    // openIsar();
   }
 
-  @override
-  void dispose() {
-    // print("dispose methodunda isar kapatılıyor");
-    closeIsar();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // print("dispose methodunda isar kapatılıyor");
+  //   closeIsar();
+  //   super.dispose();
+  // }
 
   addExpense(
     String name,
@@ -118,7 +120,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                           IconButton(
                             onPressed: () {
                               Navigator.pushNamed(context, '/expenses/final');
-                              isar.close();
+                              // isar.close();
                             },
                             icon: const Icon(
                               Icons.arrow_back,

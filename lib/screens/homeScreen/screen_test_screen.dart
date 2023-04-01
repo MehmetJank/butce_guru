@@ -57,7 +57,7 @@ class _WidgetTestScreenState extends State<WidgetTestScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        // Navigator.pushNamed(context, '/expenses');
+                        Navigator.pushNamed(context, '/revenue/list');
                       },
                       child: const Text('Test Incomes List'),
                     ),
