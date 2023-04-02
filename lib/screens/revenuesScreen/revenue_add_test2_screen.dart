@@ -1,5 +1,6 @@
-import 'package:butce_guru/database/revenue.dart';
+import 'package:butce_guru/database/revenues.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
 
@@ -12,53 +13,32 @@ class RevenueAddScreen extends StatefulWidget {
 
 class _RevenueAddScreenState extends State<RevenueAddScreen> {
   late final Isar isar;
+  final _textEditingController = TextEditingController();
 
   final _formValues = <String, String>{};
 
-  // openIsar() async {
-  //   isar = await Isar.open([RevenueSchema]);
-  //   setState(() {
-  //     print("isar açıldı");
-  //   });
-  // }
-
-  // closeIsar() async {
-  //   await isar.close();
-  // }
-
   @override
   void initState() {
-    // print("Init state methodunda isar açılıyor");
-    // openIsar();
     super.initState();
     isar = Provider.of<Isar>(context, listen: false);
   }
 
-  // @override
-  // void dispose() {
-  //   // print("dispose methodunda isar kapatılıyor");
-  //   closeIsar();
-  //   super.dispose();
-  // }
-
   addRevenue(
-    String revenueName,
+    String revenueTitle,
     String revenueDescription,
     double revenueAmount,
+    String revenueSource,
     String revenueDate,
-    String revenueCategory,
   ) async {
-    final revenue = Revenue(
-      revenueName: revenueName,
+    final newRevenue = Revenues(
+      revenueTitle: revenueTitle,
       revenueDescription: revenueDescription,
       revenueAmount: revenueAmount,
+      revenueSource: revenueSource,
       revenueDate: revenueDate,
-      revenueCategory: revenueCategory,
+      revenueUpdateDate: DateTime.now().toString(),
     );
-    isar.writeTxn(() => isar.revenues.put(revenue));
-    setState(() {
-      print("Gelir eklendi");
-    });
+    isar.writeTxn(() => isar.revenues.put(newRevenue));
   }
 
   @override
@@ -68,63 +48,79 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
         title: const Text("Gelir Ekle"),
       ),
       body: Material(
-        child: Container(
-          child: Column(
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Gelir İsmi',
-                ),
-                onSaved: (value) {
-                  _formValues['revenueName'] = value!;
-                },
+        child: Column(
+          children: [
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Gelir İsmi',
               ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Gelir Açıklaması',
-                ),
-                onSaved: (value) {
-                  _formValues['revenueDescription'] = value!;
-                },
+              onChanged: (value) {
+                _formValues['revenueTitle'] = value.toString();
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Gelir Tutarı',
               ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Gelir Tutarı',
-                ),
-                onSaved: (value) {
-                  _formValues['revenueAmount'] = value!;
-                },
+              onChanged: (value) {
+                _formValues['revenueAmount'] = value;
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Gelir Açıklaması',
               ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Gelir Tarihi',
-                ),
-                onSaved: (value) {
-                  _formValues['revenueDate'] = value!;
-                },
+              onChanged: (value) {
+                _formValues['revenueDescription'] = value.toString();
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Gelir Kaynağı',
               ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Gelir Kategorisi',
-                ),
-                onSaved: (value) {
-                  _formValues['revenueCategory'] = value!;
-                },
+              onChanged: (value) {
+                _formValues['revenueSource'] = value.toString();
+              },
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                labelText: 'Gelir Tarihi',
               ),
-              ElevatedButton(
-                onPressed: () {
-                  addRevenue(
-                    _formValues['revenueName'] ?? '',
-                    _formValues['revenueDescription'] ?? '',
-                    double.parse(_formValues['revenueAmount'] ?? '0'),
-                    _formValues['revenueDate'] ?? '',
-                    _formValues['revenueCategory'] ?? '',
-                  );
-                },
-                child: const Text('Geliri Ekle'),
-              ),
-            ],
-          ),
+              onChanged: (String value) {
+                _formValues['expenseDate'] = value;
+              },
+              onTap: () async {
+                DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2101),
+                );
+                if (pickedDate != null) {
+                  setState(() {
+                    _formValues['revenueDate'] =
+                        DateFormat('yyyy-mM-dd').format(pickedDate);
+                    _textEditingController.text =
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
+                  });
+                }
+              },
+              controller: _textEditingController,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                addRevenue(
+                  _formValues['revenueTitle'] ?? '',
+                  _formValues['revenueDescription'] ?? '',
+                  double.parse(_formValues['revenueAmount'] ?? '0'),
+                  _formValues['revenueSource'] ?? '',
+                  _formValues['revenueDate'] ??
+                      DateFormat("dd-MM-yyyy").format(DateTime.now()),
+                );
+              },
+              child: const Text('Geliri Ekle'),
+            ),
+          ],
         ),
       ),
     );

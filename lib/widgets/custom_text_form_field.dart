@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class MyTextFormField extends StatelessWidget {
+  final TextEditingController? controller;
+
   const MyTextFormField({
     Key? key,
     required this.labelText,
@@ -11,6 +13,8 @@ class MyTextFormField extends StatelessWidget {
     required this.icon,
     required this.keyboardType,
     this.inputFormatters,
+    this.onTap,
+    this.controller,
   }) : super(key: key);
 
   final String? labelText;
@@ -19,6 +23,7 @@ class MyTextFormField extends StatelessWidget {
   final IconData icon;
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+  final void Function(String)? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +73,8 @@ class MyTextFormField extends StatelessWidget {
         keyboardType: keyboardType,
         inputFormatters: inputFormatters,
         onChanged: onChanged,
+        onTap: onTap != null ? () => onTap!('') : null,
+        controller: controller,
       ),
     );
   }

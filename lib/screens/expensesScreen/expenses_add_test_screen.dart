@@ -5,6 +5,7 @@ import 'package:butce_guru/widgets/custom_drop_down_button.dart';
 import 'package:butce_guru/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
 
@@ -19,42 +20,26 @@ class ExpenseAddScreen extends StatefulWidget {
 
 class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
   late final Isar isar;
+  final _textEditingController = TextEditingController();
 
   final _formValues = <String, String>{};
 
-  // openIsar() async {
-  //   isar = await Isar.open([ExpensesSchema]);
-  // }
-
-  // closeIsar() async {
-  //   await isar.close();
-  // }
-
   @override
   void initState() {
-    // print("Init state methodunda isar açılıyor");
     super.initState();
     isar = Provider.of<Isar>(context, listen: false);
-    // openIsar();
   }
 
-  // @override
-  // void dispose() {
-  //   // print("dispose methodunda isar kapatılıyor");
-  //   closeIsar();
-  //   super.dispose();
-  // }
-
   addExpense(
-    String name,
-    String description,
-    double amount,
-    String date,
-    String category,
+    String expenseTitle,
+    String expenseDescription,
+    double expenseAmount,
+    String expenseDate,
+    String expenseCategory,
     String paymentMethod,
     String bankName,
   ) async {
-    if (amount <= 0) {
+    if (expenseAmount <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Amount must be a positive number'),
@@ -62,7 +47,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
       );
       return;
     }
-    if (name.isEmpty) {
+    if (expenseTitle.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Gider Adi boş olamaz!'),
@@ -71,11 +56,12 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
       return;
     }
     final newExpense = Expenses(
-      name: name,
-      description: description,
-      amount: amount,
-      date: date,
-      category: category,
+      expenseTitle: expenseTitle,
+      expenseDescription: expenseDescription,
+      expenseAmount: expenseAmount,
+      expenseDate: expenseDate,
+      expenseUpdateDate: DateTime.now().toString(),
+      expenseCategory: expenseCategory,
       paymentMethod: paymentMethod,
       bankName: bankName,
     );
@@ -88,9 +74,24 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
     );
   }
 
-  void clearFormFields() {
-    _formValues.clear();
+  void _selectDate(BuildContext context) async {
+    DateTime? pickDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2101));
+    if (pickDate != null) {
+      setState(() {
+        _formValues["expenseDate"] = DateFormat('yyyy-MM-dd').format(pickDate);
+      });
+    } else {
+      print("Not Selected");
+    }
   }
+
+  // void clearFormFields() {
+  //   _formValues.clear();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +120,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/expenses/final');
+                              Navigator.pushNamed(context, '/homeScreenTest');
                               // isar.close();
                             },
                             icon: const Icon(
@@ -152,7 +153,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                               icon: Icons.label,
                               keyboardType: TextInputType.text,
                               onChanged: (value) {
-                                _formValues['name'] = value;
+                                _formValues['expenseTitle'] = value;
                               },
                             ),
                             MyTextFormField(
@@ -164,7 +165,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                                 FilteringTextInputFormatter.digitsOnly
                               ],
                               onChanged: (value) {
-                                _formValues['amount'] = value;
+                                _formValues['expenseAmount'] = value;
                               },
                             ),
                             MyTextFormField(
@@ -174,7 +175,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                               icon: Icons.description,
                               keyboardType: TextInputType.text,
                               onChanged: (value) {
-                                _formValues['description'] = value;
+                                _formValues['expenseDescription'] = value;
                               },
                             ),
                             MyTextFormField(
@@ -182,9 +183,28 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                               hintText: "Gider tarihini girin!",
                               icon: Icons.date_range,
                               keyboardType: TextInputType.datetime,
-                              onChanged: (value) {
-                                _formValues['date'] = value;
+                              onChanged: (String value) {
+                                _formValues['expenseDate'] = value;
                               },
+                              onTap: (String) async {
+                                DateTime? pickedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2101),
+                                );
+                                if (pickedDate != null) {
+                                  setState(() {
+                                    _formValues['expenseDate'] =
+                                        DateFormat('yyyy-mM-dd')
+                                            .format(pickedDate);
+                                    _textEditingController.text =
+                                        DateFormat('yyyy-MM-dd')
+                                            .format(pickedDate);
+                                  });
+                                }
+                              },
+                              controller: _textEditingController,
                             ),
                             MyDropDownButton(
                               name: "Gider Kategorisi",
@@ -201,7 +221,8 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                                 'Diğer',
                               ],
                               onChanged: (value) {
-                                _formValues['category'] = value.toString();
+                                _formValues['expenseCategory'] =
+                                    value.toString();
                               },
                             ),
                             MyDropDownButton(
@@ -257,14 +278,16 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                         ),
                         onPressed: () {
                           addExpense(
-                            _formValues['name'] ?? '',
-                            _formValues['description'] ?? '',
-                            double.parse(_formValues['amount'] ?? '0'),
-                            _formValues['date'] ?? '',
-                            _formValues['category'] ?? '',
+                            _formValues['expenseTitle'] ?? '',
+                            _formValues['expenseDescription'] ?? '',
+                            double.parse(_formValues['expenseAmount'] ?? '0'),
+                            _formValues['expenseDate'] ??
+                                DateFormat("dd-MM-yyyy").format(DateTime.now()),
+                            _formValues['expenseCategory'] ?? '',
                             _formValues['paymentMethod'] ?? '',
                             _formValues['bankName'] ?? '',
                           );
+                          Navigator.pushNamed(context, '/homeScreenTest');
                         },
                         child: const Text(
                           'Gider Ekle',

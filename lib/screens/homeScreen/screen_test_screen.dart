@@ -73,6 +73,36 @@ class _WidgetTestScreenState extends State<WidgetTestScreen> {
                   },
                   child: const Text('Test Expenses Final'),
                 ),
+                const SizedBox(height: 8.0),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/testScreen');
+                  },
+                  child: const Text('Test Incomes Final'),
+                ),
+                const SizedBox(height: 8.0),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/filterScreen');
+                  },
+                  child: const Text('Test Incomes Final'),
+                ),
+                const SizedBox(height: 8.0),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/homeScreenTest');
+                  },
+                  child: const Text('Test Home Screen'),
+                ),
               ],
             ),
           ),

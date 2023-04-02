@@ -1,4 +1,4 @@
-import 'package:butce_guru/database/revenue.dart';
+import 'package:butce_guru/database/revenues.dart';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +12,7 @@ class RevenueListScreen extends StatefulWidget {
 
 class _RevenueListScreenState extends State<RevenueListScreen> {
   late final Isar isar;
-  late List<Revenue> revenuesList = [];
+  late List<Revenues> revenuesList = [];
 
   // openIsar() async {
   //   isar = await Isar.open([RevenueSchema]);
@@ -61,7 +61,7 @@ class _RevenueListScreenState extends State<RevenueListScreen> {
                   itemCount: revenuesList.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: Text(revenuesList[index].revenueName),
+                      title: Text(revenuesList[index].revenueTitle),
                       subtitle: Text(revenuesList[index].revenueDescription),
                       trailing:
                           Text(revenuesList[index].revenueAmount.toString()),

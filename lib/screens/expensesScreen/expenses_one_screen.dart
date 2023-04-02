@@ -117,26 +117,26 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: Text(expensesList[index].name),
+                                title: Text(expensesList[index].expenseTitle),
                                 content: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     checkEmpty(
                                       "Miktar: ",
-                                      "${expensesList[index].amount} TL",
+                                      "${expensesList[index].expenseAmount} TL",
                                     ),
                                     checkEmpty(
                                       "Açıklama: ",
-                                      expensesList[index].description,
+                                      expensesList[index].expenseDescription,
                                     ),
                                     checkEmpty(
                                       "Tarih: ",
-                                      expensesList[index].date,
+                                      expensesList[index].expenseDate,
                                     ),
                                     checkEmpty(
                                       "Kategori: ",
-                                      expensesList[index].category,
+                                      expensesList[index].expenseCategory,
                                     ),
                                     checkEmpty(
                                       "Ödeme Türü: ",
@@ -184,7 +184,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                                   CircleAvatar(
                                     backgroundColor: AppColors.primaryColor,
                                     child: Text(
-                                      expensesList[index].name[0],
+                                      expensesList[index].expenseTitle[0],
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
@@ -197,11 +197,11 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        expensesList[index].name,
+                                        expensesList[index].expenseTitle,
                                         style: const TextStyle(fontSize: 18),
                                       ),
                                       Text(
-                                        expensesList[index].date,
+                                        expensesList[index].expenseDate,
                                         style: const TextStyle(
                                           fontSize: 14,
                                           color: Colors.grey,
@@ -212,7 +212,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                                 ],
                               ),
                               Text(
-                                "- ${expensesList[index].amount} TL",
+                                "- ${expensesList[index].expenseAmount} TL",
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.red[800],
@@ -259,3 +259,26 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
     );
   }
 }
+
+// Card(
+//               child: ListTile(
+//                 title: Text(
+//                   item["title"],
+//                   style: TextStyle(
+//                     color:
+//                         item["type"] == "expenses" ? Colors.red : Colors.green,
+//                   ),
+//                 ),
+//                 subtitle: Text(
+//                   item["amount"].toString(),
+//                   style: TextStyle(
+//                     color:
+//                         item["type"] == "expenses" ? Colors.red : Colors.green,
+//                   ),
+//                 ),
+//                 trailing: IconButton(
+//                   icon: const Icon(Icons.delete),
+//                   onPressed: () {},
+//                 ),
+//               ),
+//             );

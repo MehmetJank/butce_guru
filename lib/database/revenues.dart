@@ -1,21 +1,23 @@
 import 'package:isar/isar.dart';
 
-part 'revenue.g.dart';
+part 'revenues.g.dart';
 
 @collection
-class Revenue {
+class Revenues {
   Id id = Isar.autoIncrement; // auto increment id.
-  String revenueName; // gelir ismi ornek: maas
+  String revenueTitle; // gelir ismi ornek: maas
   String revenueDescription; //aciklama // ornek: maas
   double revenueAmount; //tutar // ornek: 100.0
+  String revenueSource; // gelir kaynagi // ornek: is
   String revenueDate; //tarih  // ornek: 2021-09-01
-  String revenueCategory; //gelir kategori // ornek: maas
+  String revenueUpdateDate; //eklenme veya guncellenme tarihi
 
-  Revenue({
-    required this.revenueName,
+  Revenues({
+    required this.revenueTitle,
     required this.revenueDescription,
     required this.revenueAmount,
+    required this.revenueSource,
     required this.revenueDate,
-    required this.revenueCategory,
+    required this.revenueUpdateDate,
   });
 }

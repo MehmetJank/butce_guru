@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'revenue.dart';
+part of 'revenues.dart';
 
 // **************************************************************************
 // IsarCollectionGenerator
@@ -9,98 +9,106 @@ part of 'revenue.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters
 
-extension GetRevenueCollection on Isar {
-  IsarCollection<Revenue> get revenues => this.collection();
+extension GetRevenuesCollection on Isar {
+  IsarCollection<Revenues> get revenues => this.collection();
 }
 
-const RevenueSchema = CollectionSchema(
-  name: r'Revenue',
-  id: -749704011775570183,
+const RevenuesSchema = CollectionSchema(
+  name: r'Revenues',
+  id: -346829559020900818,
   properties: {
     r'revenueAmount': PropertySchema(
       id: 0,
       name: r'revenueAmount',
       type: IsarType.double,
     ),
-    r'revenueCategory': PropertySchema(
-      id: 1,
-      name: r'revenueCategory',
-      type: IsarType.string,
-    ),
     r'revenueDate': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'revenueDate',
       type: IsarType.string,
     ),
     r'revenueDescription': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'revenueDescription',
       type: IsarType.string,
     ),
-    r'revenueName': PropertySchema(
+    r'revenueSource': PropertySchema(
+      id: 3,
+      name: r'revenueSource',
+      type: IsarType.string,
+    ),
+    r'revenueTitle': PropertySchema(
       id: 4,
-      name: r'revenueName',
+      name: r'revenueTitle',
+      type: IsarType.string,
+    ),
+    r'revenueUpdateDate': PropertySchema(
+      id: 5,
+      name: r'revenueUpdateDate',
       type: IsarType.string,
     )
   },
-  estimateSize: _revenueEstimateSize,
-  serialize: _revenueSerialize,
-  deserialize: _revenueDeserialize,
-  deserializeProp: _revenueDeserializeProp,
+  estimateSize: _revenuesEstimateSize,
+  serialize: _revenuesSerialize,
+  deserialize: _revenuesDeserialize,
+  deserializeProp: _revenuesDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _revenueGetId,
-  getLinks: _revenueGetLinks,
-  attach: _revenueAttach,
+  getId: _revenuesGetId,
+  getLinks: _revenuesGetLinks,
+  attach: _revenuesAttach,
   version: '3.0.5',
 );
 
-int _revenueEstimateSize(
-  Revenue object,
+int _revenuesEstimateSize(
+  Revenues object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.revenueCategory.length * 3;
   bytesCount += 3 + object.revenueDate.length * 3;
   bytesCount += 3 + object.revenueDescription.length * 3;
-  bytesCount += 3 + object.revenueName.length * 3;
+  bytesCount += 3 + object.revenueSource.length * 3;
+  bytesCount += 3 + object.revenueTitle.length * 3;
+  bytesCount += 3 + object.revenueUpdateDate.length * 3;
   return bytesCount;
 }
 
-void _revenueSerialize(
-  Revenue object,
+void _revenuesSerialize(
+  Revenues object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeDouble(offsets[0], object.revenueAmount);
-  writer.writeString(offsets[1], object.revenueCategory);
-  writer.writeString(offsets[2], object.revenueDate);
-  writer.writeString(offsets[3], object.revenueDescription);
-  writer.writeString(offsets[4], object.revenueName);
+  writer.writeString(offsets[1], object.revenueDate);
+  writer.writeString(offsets[2], object.revenueDescription);
+  writer.writeString(offsets[3], object.revenueSource);
+  writer.writeString(offsets[4], object.revenueTitle);
+  writer.writeString(offsets[5], object.revenueUpdateDate);
 }
 
-Revenue _revenueDeserialize(
+Revenues _revenuesDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Revenue(
+  final object = Revenues(
     revenueAmount: reader.readDouble(offsets[0]),
-    revenueCategory: reader.readString(offsets[1]),
-    revenueDate: reader.readString(offsets[2]),
-    revenueDescription: reader.readString(offsets[3]),
-    revenueName: reader.readString(offsets[4]),
+    revenueDate: reader.readString(offsets[1]),
+    revenueDescription: reader.readString(offsets[2]),
+    revenueSource: reader.readString(offsets[3]),
+    revenueTitle: reader.readString(offsets[4]),
+    revenueUpdateDate: reader.readString(offsets[5]),
   );
   object.id = id;
   return object;
 }
 
-P _revenueDeserializeProp<P>(
+P _revenuesDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -117,33 +125,35 @@ P _revenueDeserializeProp<P>(
       return (reader.readString(offset)) as P;
     case 4:
       return (reader.readString(offset)) as P;
+    case 5:
+      return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
 }
 
-Id _revenueGetId(Revenue object) {
+Id _revenuesGetId(Revenues object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _revenueGetLinks(Revenue object) {
+List<IsarLinkBase<dynamic>> _revenuesGetLinks(Revenues object) {
   return [];
 }
 
-void _revenueAttach(IsarCollection<dynamic> col, Id id, Revenue object) {
+void _revenuesAttach(IsarCollection<dynamic> col, Id id, Revenues object) {
   object.id = id;
 }
 
-extension RevenueQueryWhereSort on QueryBuilder<Revenue, Revenue, QWhere> {
-  QueryBuilder<Revenue, Revenue, QAfterWhere> anyId() {
+extension RevenuesQueryWhereSort on QueryBuilder<Revenues, Revenues, QWhere> {
+  QueryBuilder<Revenues, Revenues, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension RevenueQueryWhere on QueryBuilder<Revenue, Revenue, QWhereClause> {
-  QueryBuilder<Revenue, Revenue, QAfterWhereClause> idEqualTo(Id id) {
+extension RevenuesQueryWhere on QueryBuilder<Revenues, Revenues, QWhereClause> {
+  QueryBuilder<Revenues, Revenues, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -152,7 +162,7 @@ extension RevenueQueryWhere on QueryBuilder<Revenue, Revenue, QWhereClause> {
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<Revenues, Revenues, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -174,7 +184,7 @@ extension RevenueQueryWhere on QueryBuilder<Revenue, Revenue, QWhereClause> {
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<Revenues, Revenues, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -183,7 +193,7 @@ extension RevenueQueryWhere on QueryBuilder<Revenue, Revenue, QWhereClause> {
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<Revenues, Revenues, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -192,7 +202,7 @@ extension RevenueQueryWhere on QueryBuilder<Revenue, Revenue, QWhereClause> {
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterWhereClause> idBetween(
+  QueryBuilder<Revenues, Revenues, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -209,9 +219,9 @@ extension RevenueQueryWhere on QueryBuilder<Revenue, Revenue, QWhereClause> {
   }
 }
 
-extension RevenueQueryFilter
-    on QueryBuilder<Revenue, Revenue, QFilterCondition> {
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> idEqualTo(Id value) {
+extension RevenuesQueryFilter
+    on QueryBuilder<Revenues, Revenues, QFilterCondition> {
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -220,7 +230,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -233,7 +243,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> idLessThan(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -246,7 +256,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> idBetween(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -263,7 +273,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueAmountEqualTo(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueAmountEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
@@ -276,7 +286,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueAmountGreaterThan(
     double value, {
     bool include = false,
@@ -292,7 +302,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueAmountLessThan(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueAmountLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -307,7 +317,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueAmountBetween(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueAmountBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -326,141 +336,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueCategoryEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'revenueCategory',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
-      revenueCategoryGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'revenueCategory',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueCategoryLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'revenueCategory',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueCategoryBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'revenueCategory',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
-      revenueCategoryStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'revenueCategory',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueCategoryEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'revenueCategory',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueCategoryContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'revenueCategory',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueCategoryMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'revenueCategory',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
-      revenueCategoryIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'revenueCategory',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
-      revenueCategoryIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'revenueCategory',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueDateEqualTo(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueDateEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -473,7 +349,8 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueDateGreaterThan(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueDateGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -488,7 +365,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueDateLessThan(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueDateLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -503,7 +380,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueDateBetween(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueDateBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -522,7 +399,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueDateStartsWith(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueDateStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -535,7 +412,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueDateEndsWith(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueDateEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -548,7 +425,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueDateContains(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueDateContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -560,7 +437,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueDateMatches(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueDateMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -572,7 +449,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueDateIsEmpty() {
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueDateIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'revenueDate',
@@ -581,7 +458,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDateIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
@@ -591,7 +468,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -605,7 +482,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionGreaterThan(
     String value, {
     bool include = false,
@@ -621,7 +498,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionLessThan(
     String value, {
     bool include = false,
@@ -637,7 +514,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionBetween(
     String lower,
     String upper, {
@@ -657,7 +534,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionStartsWith(
     String value, {
     bool caseSensitive = true,
@@ -671,7 +548,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionEndsWith(
     String value, {
     bool caseSensitive = true,
@@ -685,7 +562,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -696,7 +573,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -707,7 +584,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -717,7 +594,7 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
@@ -727,20 +604,21 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueNameEqualTo(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueSourceEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'revenueName',
+        property: r'revenueSource',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueNameGreaterThan(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueSourceGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -748,14 +626,14 @@ extension RevenueQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'revenueName',
+        property: r'revenueSource',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueNameLessThan(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueSourceLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -763,14 +641,14 @@ extension RevenueQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'revenueName',
+        property: r'revenueSource',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueNameBetween(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueSourceBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -779,7 +657,7 @@ extension RevenueQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'revenueName',
+        property: r'revenueSource',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -789,243 +667,533 @@ extension RevenueQueryFilter
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueNameStartsWith(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueSourceStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'revenueName',
+        property: r'revenueSource',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueNameEndsWith(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueSourceEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'revenueName',
+        property: r'revenueSource',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueNameContains(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueSourceContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'revenueName',
+        property: r'revenueSource',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueNameMatches(
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueSourceMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'revenueName',
+        property: r'revenueSource',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition> revenueNameIsEmpty() {
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueSourceIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'revenueName',
+        property: r'revenueSource',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterFilterCondition>
-      revenueNameIsNotEmpty() {
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueSourceIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'revenueName',
+        property: r'revenueSource',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueTitleEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'revenueTitle',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueTitleGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'revenueTitle',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueTitleLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'revenueTitle',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueTitleBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'revenueTitle',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueTitleStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'revenueTitle',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueTitleEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'revenueTitle',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueTitleContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'revenueTitle',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueTitleMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'revenueTitle',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueTitleIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'revenueTitle',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueTitleIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'revenueTitle',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueUpdateDateEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'revenueUpdateDate',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueUpdateDateGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'revenueUpdateDate',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueUpdateDateLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'revenueUpdateDate',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueUpdateDateBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'revenueUpdateDate',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueUpdateDateStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'revenueUpdateDate',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueUpdateDateEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'revenueUpdateDate',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueUpdateDateContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'revenueUpdateDate',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueUpdateDateMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'revenueUpdateDate',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueUpdateDateIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'revenueUpdateDate',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueUpdateDateIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'revenueUpdateDate',
         value: '',
       ));
     });
   }
 }
 
-extension RevenueQueryObject
-    on QueryBuilder<Revenue, Revenue, QFilterCondition> {}
+extension RevenuesQueryObject
+    on QueryBuilder<Revenues, Revenues, QFilterCondition> {}
 
-extension RevenueQueryLinks
-    on QueryBuilder<Revenue, Revenue, QFilterCondition> {}
+extension RevenuesQueryLinks
+    on QueryBuilder<Revenues, Revenues, QFilterCondition> {}
 
-extension RevenueQuerySortBy on QueryBuilder<Revenue, Revenue, QSortBy> {
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> sortByRevenueAmount() {
+extension RevenuesQuerySortBy on QueryBuilder<Revenues, Revenues, QSortBy> {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueAmount() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'revenueAmount', Sort.asc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> sortByRevenueAmountDesc() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueAmountDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'revenueAmount', Sort.desc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> sortByRevenueCategory() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'revenueCategory', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> sortByRevenueCategoryDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'revenueCategory', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> sortByRevenueDate() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'revenueDate', Sort.asc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> sortByRevenueDateDesc() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueDateDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'revenueDate', Sort.desc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> sortByRevenueDescription() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueDescription() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'revenueDescription', Sort.asc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> sortByRevenueDescriptionDesc() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy>
+      sortByRevenueDescriptionDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'revenueDescription', Sort.desc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> sortByRevenueName() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueSource() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'revenueName', Sort.asc);
+      return query.addSortBy(r'revenueSource', Sort.asc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> sortByRevenueNameDesc() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueSourceDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'revenueName', Sort.desc);
+      return query.addSortBy(r'revenueSource', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueTitle() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'revenueTitle', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueTitleDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'revenueTitle', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueUpdateDate() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'revenueUpdateDate', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueUpdateDateDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'revenueUpdateDate', Sort.desc);
     });
   }
 }
 
-extension RevenueQuerySortThenBy
-    on QueryBuilder<Revenue, Revenue, QSortThenBy> {
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> thenById() {
+extension RevenuesQuerySortThenBy
+    on QueryBuilder<Revenues, Revenues, QSortThenBy> {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> thenByRevenueAmount() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByRevenueAmount() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'revenueAmount', Sort.asc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> thenByRevenueAmountDesc() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByRevenueAmountDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'revenueAmount', Sort.desc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> thenByRevenueCategory() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'revenueCategory', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> thenByRevenueCategoryDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'revenueCategory', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> thenByRevenueDate() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByRevenueDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'revenueDate', Sort.asc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> thenByRevenueDateDesc() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByRevenueDateDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'revenueDate', Sort.desc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> thenByRevenueDescription() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByRevenueDescription() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'revenueDescription', Sort.asc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> thenByRevenueDescriptionDesc() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy>
+      thenByRevenueDescriptionDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'revenueDescription', Sort.desc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> thenByRevenueName() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByRevenueSource() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'revenueName', Sort.asc);
+      return query.addSortBy(r'revenueSource', Sort.asc);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QAfterSortBy> thenByRevenueNameDesc() {
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByRevenueSourceDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'revenueName', Sort.desc);
+      return query.addSortBy(r'revenueSource', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByRevenueTitle() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'revenueTitle', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByRevenueTitleDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'revenueTitle', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByRevenueUpdateDate() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'revenueUpdateDate', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByRevenueUpdateDateDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'revenueUpdateDate', Sort.desc);
     });
   }
 }
 
-extension RevenueQueryWhereDistinct
-    on QueryBuilder<Revenue, Revenue, QDistinct> {
-  QueryBuilder<Revenue, Revenue, QDistinct> distinctByRevenueAmount() {
+extension RevenuesQueryWhereDistinct
+    on QueryBuilder<Revenues, Revenues, QDistinct> {
+  QueryBuilder<Revenues, Revenues, QDistinct> distinctByRevenueAmount() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'revenueAmount');
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QDistinct> distinctByRevenueCategory(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'revenueCategory',
-          caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<Revenue, Revenue, QDistinct> distinctByRevenueDate(
+  QueryBuilder<Revenues, Revenues, QDistinct> distinctByRevenueDate(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'revenueDate', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QDistinct> distinctByRevenueDescription(
+  QueryBuilder<Revenues, Revenues, QDistinct> distinctByRevenueDescription(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'revenueDescription',
@@ -1033,49 +1201,72 @@ extension RevenueQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Revenue, Revenue, QDistinct> distinctByRevenueName(
+  QueryBuilder<Revenues, Revenues, QDistinct> distinctByRevenueSource(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'revenueName', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'revenueSource',
+          caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QDistinct> distinctByRevenueTitle(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'revenueTitle', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QDistinct> distinctByRevenueUpdateDate(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'revenueUpdateDate',
+          caseSensitive: caseSensitive);
     });
   }
 }
 
-extension RevenueQueryProperty
-    on QueryBuilder<Revenue, Revenue, QQueryProperty> {
-  QueryBuilder<Revenue, int, QQueryOperations> idProperty() {
+extension RevenuesQueryProperty
+    on QueryBuilder<Revenues, Revenues, QQueryProperty> {
+  QueryBuilder<Revenues, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<Revenue, double, QQueryOperations> revenueAmountProperty() {
+  QueryBuilder<Revenues, double, QQueryOperations> revenueAmountProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'revenueAmount');
     });
   }
 
-  QueryBuilder<Revenue, String, QQueryOperations> revenueCategoryProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'revenueCategory');
-    });
-  }
-
-  QueryBuilder<Revenue, String, QQueryOperations> revenueDateProperty() {
+  QueryBuilder<Revenues, String, QQueryOperations> revenueDateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'revenueDate');
     });
   }
 
-  QueryBuilder<Revenue, String, QQueryOperations> revenueDescriptionProperty() {
+  QueryBuilder<Revenues, String, QQueryOperations>
+      revenueDescriptionProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'revenueDescription');
     });
   }
 
-  QueryBuilder<Revenue, String, QQueryOperations> revenueNameProperty() {
+  QueryBuilder<Revenues, String, QQueryOperations> revenueSourceProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'revenueName');
+      return query.addPropertyName(r'revenueSource');
+    });
+  }
+
+  QueryBuilder<Revenues, String, QQueryOperations> revenueTitleProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'revenueTitle');
+    });
+  }
+
+  QueryBuilder<Revenues, String, QQueryOperations> revenueUpdateDateProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'revenueUpdateDate');
     });
   }
 }

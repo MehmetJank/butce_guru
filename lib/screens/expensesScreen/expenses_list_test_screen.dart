@@ -15,30 +15,12 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
   late final Isar isar;
   late List<Expenses> expensesList = [];
 
-  // openIsar() async {
-  //   isar = await Isar.open([ExpensesSchema]);
-  //   listExpenses();
-  // }
-
-  // closeIsar() async {
-  //   await isar.close();
-  // }
-
   @override
   void initState() {
-    // print("Init state methodunda isar açılıyor");
     super.initState();
     isar = Provider.of<Isar>(context, listen: false);
     listExpenses();
-    // openIsar();
   }
-
-  // @override
-  // void dispose() {
-  //   // print("dispose methodunda isar kapatılıyor");
-  //   closeIsar();
-  //   super.dispose();
-  // }
 
   listExpenses() async {
     final expenses = await isar.expenses.where().findAll();
@@ -120,26 +102,26 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text(expensesList[index].name),
+                              title: Text(expensesList[index].expenseTitle),
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   checkEmpty(
                                     "Miktar: ",
-                                    "${expensesList[index].amount} TL",
+                                    "${expensesList[index].expenseAmount} TL",
                                   ),
                                   checkEmpty(
                                     "Açıklama: ",
-                                    expensesList[index].description,
+                                    expensesList[index].expenseDescription,
                                   ),
                                   checkEmpty(
                                     "Tarih: ",
-                                    expensesList[index].date,
+                                    expensesList[index].expenseDate,
                                   ),
                                   checkEmpty(
                                     "Kategori: ",
-                                    expensesList[index].category,
+                                    expensesList[index].expenseCategory,
                                   ),
                                   checkEmpty(
                                     "Ödeme Türü: ",
@@ -187,7 +169,7 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
                                 CircleAvatar(
                                   backgroundColor: AppColors.primaryColor,
                                   child: Text(
-                                    expensesList[index].name[0],
+                                    expensesList[index].expenseTitle[0],
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
@@ -199,11 +181,11 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      expensesList[index].name,
+                                      expensesList[index].expenseTitle,
                                       style: const TextStyle(fontSize: 18),
                                     ),
                                     Text(
-                                      expensesList[index].date,
+                                      expensesList[index].expenseDate,
                                       style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.grey,
@@ -214,7 +196,7 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
                               ],
                             ),
                             Text(
-                              "- ${expensesList[index].amount} TL",
+                              "- ${expensesList[index].expenseAmount} TL",
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.red[800],
