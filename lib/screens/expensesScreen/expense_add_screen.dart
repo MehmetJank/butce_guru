@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import '../../constants/color.dart';
 
 class ExpenseAddScreen extends StatefulWidget {
-  const ExpenseAddScreen({Key? key}) : super(key: key);
+  const ExpenseAddScreen({super.key});
 
   @override
   State<ExpenseAddScreen> createState() => _ExpenseAddScreenState();
@@ -20,9 +20,15 @@ class ExpenseAddScreen extends StatefulWidget {
 
 class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
   late final Isar isar;
-  final _textEditingController = TextEditingController();
+  final _expenseTitleController = TextEditingController();
+  final _expenseDescriptionController = TextEditingController();
+  final _expenseAmountController = TextEditingController();
+  final _expenseDateController = TextEditingController();
+  final _expenseCategoryController = TextEditingController();
+  final _paymentMethodController = TextEditingController();
+  final _bankNameController = TextEditingController();
 
-  final _formValues = <String, String>{};
+  int? id; //edit tusundan gelecek id
 
   @override
   void initState() {
@@ -30,7 +36,17 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
     isar = Provider.of<Isar>(context, listen: false);
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    id = ModalRoute.of(context)!.settings.arguments as int?;
+    if (id != null) {
+      editExpense(id!);
+    }
+  }
+
   addExpense(
+    int id,
     String expenseTitle,
     String expenseDescription,
     double expenseAmount,
@@ -39,6 +55,16 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
     String paymentMethod,
     String bankName,
   ) async {
+    final newExpense = Expenses();
+    newExpense.id = id;
+    newExpense.expenseTitle = expenseTitle;
+    newExpense.expenseDescription = expenseDescription;
+    newExpense.expenseAmount = expenseAmount;
+    newExpense.expenseDate = expenseDate;
+    newExpense.expenseCategory = expenseCategory;
+    newExpense.paymentMethod = paymentMethod;
+    newExpense.bankName = bankName;
+
     if (expenseAmount <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -55,16 +81,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
       );
       return;
     }
-    final newExpense = Expenses(
-      expenseTitle: expenseTitle,
-      expenseDescription: expenseDescription,
-      expenseAmount: expenseAmount,
-      expenseDate: expenseDate,
-      expenseUpdateDate: DateTime.now().toString(),
-      expenseCategory: expenseCategory,
-      paymentMethod: paymentMethod,
-      bankName: bankName,
-    );
+
     isar.writeTxn(() => isar.expenses.put(newExpense));
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -72,6 +89,19 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
         content: Text('Expense added'),
       ),
     );
+  }
+
+  void editExpense(int id) async {
+    final expense = await isar.expenses.where().idEqualTo(id).findFirst();
+    if (expense != null) {
+      _expenseTitleController.text = expense.expenseTitle ?? '';
+      _expenseDescriptionController.text = expense.expenseDescription ?? '';
+      _expenseAmountController.text = expense.expenseAmount.toString();
+      _expenseDateController.text = expense.expenseDate ?? '';
+      _expenseCategoryController.text = expense.expenseCategory ?? '';
+      _paymentMethodController.text = expense.paymentMethod ?? '';
+      _bankNameController.text = expense.bankName ?? '';
+    }
   }
 
   @override
@@ -84,130 +114,128 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
               const CustomBackground(
                 assetImage: "assets/backgrounds/expense_screen_background.jpg",
               ),
-              const CustomAppBar(
-                title: "Gider Ekle",
-                onPressBack: "/homeScreen",
+              CustomAppBar(
+                title: id == null ? "Gider Ekle" : "Gider Güncelle",
+                onPressBack: '/homeScreen',
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 65, 20, 0),
                 child: Column(
                   children: [
-                    Form(
-                      child: Column(
-                        children: [
-                          CustomTextFormField(
-                            labelText: "Gider Adı",
-                            hintText: "Gideri istediğiniz şekilde adlandırın!",
-                            icon: Icons.label,
-                            keyboardType: TextInputType.text,
-                            onChanged: (value) {
-                              _formValues['expenseTitle'] = value;
-                            },
-                          ),
-                          CustomTextFormField(
-                            labelText: "Gider Tutarı",
-                            hintText: "Gider tutarını girin!",
-                            icon: Icons.attach_money,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            onChanged: (value) {
-                              _formValues['expenseAmount'] = value;
-                            },
-                          ),
-                          CustomTextFormField(
-                            labelText: "Gider Açıklaması",
-                            hintText:
-                                "Giderinizi istediginiz sekilde açıklayın!",
-                            icon: Icons.description,
-                            keyboardType: TextInputType.text,
-                            onChanged: (value) {
-                              _formValues['expenseDescription'] = value;
-                            },
-                          ),
-                          CustomTextFormField(
-                            labelText: "Gider Tarihi",
-                            hintText: "Gider tarihini girin!",
-                            icon: Icons.date_range,
-                            keyboardType: TextInputType.datetime,
-                            onChanged: (String value) {
-                              _formValues['expenseDate'] = value;
-                            },
-                            onTap: (String) async {
-                              DateTime? pickedDate = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(2000),
-                                lastDate: DateTime(2101),
+                    Column(
+                      children: [
+                        CustomTextFormField(
+                          labelText: "Gider Adı",
+                          hintText: "Gideri istediğiniz şekilde adlandırın!",
+                          icon: Icons.label,
+                          keyboardType: TextInputType.text,
+                          controller: _expenseTitleController,
+                          onChanged: (value) {},
+                        ),
+                        CustomTextFormField(
+                          labelText: "Gider Tutarı",
+                          hintText: "Gider tutarını girin!",
+                          icon: Icons.attach_money,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          controller: _expenseAmountController,
+                          onChanged: (value) {},
+                        ),
+                        CustomTextFormField(
+                          labelText: "Gider Açıklaması",
+                          hintText: "Giderinizi istediginiz sekilde açıklayın!",
+                          icon: Icons.description,
+                          keyboardType: TextInputType.text,
+                          controller: _expenseDescriptionController,
+                          onChanged: (value) {},
+                        ),
+                        CustomTextFormField(
+                          labelText: "Gider Tarihi",
+                          hintText: "Gider tarihini girin!",
+                          icon: Icons.date_range,
+                          keyboardType: TextInputType.datetime,
+                          controller: _expenseDateController,
+                          onTap: (dynamic) async {
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2101),
+                            );
+                            if (pickedDate != null) {
+                              setState(
+                                () {
+                                  _expenseDateController.text =
+                                      DateFormat("dd/MM/yyyy HH:mm:ss")
+                                          .format(pickedDate);
+                                },
                               );
-                              if (pickedDate != null) {
-                                setState(() {
-                                  _formValues['expenseDate'] =
-                                      DateFormat('yyyy-mM-dd')
-                                          .format(pickedDate);
-                                  _textEditingController.text =
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(pickedDate);
-                                });
-                              }
-                            },
-                            controller: _textEditingController,
-                          ),
-                          CustomDropDownButton(
-                            name: "Gider Kategorisi",
-                            hint: ('Seçiniz'),
-                            items: const [
-                              'Yemek',
-                              'Ulaşım',
-                              'Giyim',
-                              'Sağlık',
-                              'Eğitim',
-                              'Eğlence',
-                              'Spor',
-                              'Ev',
-                              'Diğer',
-                            ],
-                            onChanged: (value) {
-                              _formValues['expenseCategory'] = value.toString();
-                            },
-                          ),
-                          CustomDropDownButton(
-                            name: "Ödeme Yöntemi",
-                            hint: ('Seçiniz'),
-                            items: const [
-                              'Nakit',
-                              'Kredi Kartı',
-                              'Banka Kartı',
-                            ],
-                            onChanged: (value) {
-                              _formValues['paymentMethod'] = value.toString();
-                            },
-                          ),
-                          CustomDropDownButton(
-                            name: "Banka Adı",
-                            hint: ('Seçiniz'),
-                            items: const [
-                              "Garanti BNK.",
-                              "Is BNK.",
-                              "Yapi Kredi BNK.",
-                              "Ziraat BNK.",
-                              "Akbank",
-                              "Halkbank",
-                              "Denizbank",
-                              "Finansbank",
-                              "ING Bank",
-                              "T.C. Ziraat BNK.",
-                              "Kuveyt Turk BNK.",
-                              "Vakifbank",
-                              "Anadolubank",
-                            ],
-                            onChanged: (value) {
-                              _formValues['bankName'] = value.toString();
-                            },
-                          )
-                        ],
-                      ),
+                            } else {
+                              setState(
+                                () {
+                                  _expenseDateController.text =
+                                      DateFormat("dd/MM/yyyy HH:mm:ss")
+                                          .format(DateTime.now());
+                                },
+                              );
+                            }
+                          },
+                        ),
+                        CustomDropDownButton(
+                          name: "Gider Kategorisi",
+                          hint: ('Seçiniz'),
+                          items: const [
+                            'Yemek',
+                            'Ulaşım',
+                            'Giyim',
+                            'Sağlık',
+                            'Eğitim',
+                            'Eğlence',
+                            'Spor',
+                            'Ev',
+                            'Diğer',
+                          ],
+                          onChanged: (value) {
+                            _expenseCategoryController.text = value.toString();
+                          },
+                        ),
+                        CustomDropDownButton(
+                          name: "Ödeme Yöntemi",
+                          hint: ('Seçiniz'),
+                          items: const [
+                            'Nakit',
+                            'Kredi Kartı',
+                            'Banka Kartı',
+                          ],
+                          onChanged: (value) {
+                            _paymentMethodController.text = value.toString();
+                          },
+                        ),
+                        CustomDropDownButton(
+                          name: "Banka Adı",
+                          hint: ('Seçiniz'),
+                          items: const [
+                            "Garanti",
+                            "Is",
+                            "Yapi Kredi",
+                            "Ziraat",
+                            "Akbank",
+                            "Halkbank",
+                            "Denizbank",
+                            "Finansbank",
+                            "ING Bank",
+                            "T.C. Ziraat",
+                            "Kuveyt Turk",
+                            "Vakifbank",
+                            "Anadolubank",
+                          ],
+                          onChanged: (value) {
+                            _bankNameController.text = value.toString();
+                          },
+                        )
+                      ],
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
@@ -223,21 +251,38 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                         ),
                         minimumSize: const Size(200, 50),
                       ),
-                      onPressed: () {
-                        addExpense(
-                          _formValues['expenseTitle'] ?? '',
-                          _formValues['expenseDescription'] ?? '',
-                          double.parse(_formValues['expenseAmount'] ?? '0'),
-                          _formValues['expenseDate'] ??
-                              DateFormat("dd-MM-yyyy").format(DateTime.now()),
-                          _formValues['expenseCategory'] ?? '',
-                          _formValues['paymentMethod'] ?? '',
-                          _formValues['bankName'] ?? '',
-                        );
+                      onPressed: () async {
+                        id == null
+                            ? await addExpense(
+                                Isar.autoIncrement,
+                                _expenseTitleController.text,
+                                _expenseDescriptionController.text,
+                                double.parse(_expenseAmountController.text),
+                                _expenseDateController.text.isEmpty == true
+                                    ? DateFormat("dd/MM/yyyy HH:mm:ss")
+                                        .format(DateTime.now())
+                                    : _expenseDateController.text,
+                                _expenseCategoryController.text,
+                                _paymentMethodController.text,
+                                _bankNameController.text,
+                              )
+                            : addExpense(
+                                id!,
+                                _expenseTitleController.text,
+                                _expenseDescriptionController.text,
+                                double.parse(_expenseAmountController.text),
+                                _expenseDateController.text.isEmpty == true
+                                    ? DateFormat("dd/MM/yyyy HH:mm:ss")
+                                        .format(DateTime.now())
+                                    : _expenseDateController.text,
+                                _expenseCategoryController.text,
+                                _paymentMethodController.text,
+                                _bankNameController.text,
+                              );
                         Navigator.pushNamed(context, '/homeScreen');
                       },
-                      child: const Text(
-                        'Gider Ekle',
+                      child: Text(
+                        id == null ? 'Gider Ekle' : "Gideri Güncelle",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,

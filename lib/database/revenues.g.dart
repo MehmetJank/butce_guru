@@ -41,11 +41,6 @@ const RevenuesSchema = CollectionSchema(
       id: 4,
       name: r'revenueTitle',
       type: IsarType.string,
-    ),
-    r'revenueUpdateDate': PropertySchema(
-      id: 5,
-      name: r'revenueUpdateDate',
-      type: IsarType.string,
     )
   },
   estimateSize: _revenuesEstimateSize,
@@ -68,11 +63,30 @@ int _revenuesEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.revenueDate.length * 3;
-  bytesCount += 3 + object.revenueDescription.length * 3;
-  bytesCount += 3 + object.revenueSource.length * 3;
-  bytesCount += 3 + object.revenueTitle.length * 3;
-  bytesCount += 3 + object.revenueUpdateDate.length * 3;
+  {
+    final value = object.revenueDate;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.revenueDescription;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.revenueSource;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.revenueTitle;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -87,7 +101,6 @@ void _revenuesSerialize(
   writer.writeString(offsets[2], object.revenueDescription);
   writer.writeString(offsets[3], object.revenueSource);
   writer.writeString(offsets[4], object.revenueTitle);
-  writer.writeString(offsets[5], object.revenueUpdateDate);
 }
 
 Revenues _revenuesDeserialize(
@@ -96,15 +109,13 @@ Revenues _revenuesDeserialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Revenues(
-    revenueAmount: reader.readDouble(offsets[0]),
-    revenueDate: reader.readString(offsets[1]),
-    revenueDescription: reader.readString(offsets[2]),
-    revenueSource: reader.readString(offsets[3]),
-    revenueTitle: reader.readString(offsets[4]),
-    revenueUpdateDate: reader.readString(offsets[5]),
-  );
+  final object = Revenues();
   object.id = id;
+  object.revenueAmount = reader.readDoubleOrNull(offsets[0]);
+  object.revenueDate = reader.readStringOrNull(offsets[1]);
+  object.revenueDescription = reader.readStringOrNull(offsets[2]);
+  object.revenueSource = reader.readStringOrNull(offsets[3]);
+  object.revenueTitle = reader.readStringOrNull(offsets[4]);
   return object;
 }
 
@@ -116,17 +127,15 @@ P _revenuesDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 1:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 2:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 3:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 4:
-      return (reader.readString(offset)) as P;
-    case 5:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -273,8 +282,26 @@ extension RevenuesQueryFilter
     });
   }
 
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueAmountIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'revenueAmount',
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueAmountIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'revenueAmount',
+      ));
+    });
+  }
+
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueAmountEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -288,7 +315,7 @@ extension RevenuesQueryFilter
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueAmountGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -303,7 +330,7 @@ extension RevenuesQueryFilter
   }
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueAmountLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -318,8 +345,8 @@ extension RevenuesQueryFilter
   }
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueAmountBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -336,8 +363,25 @@ extension RevenuesQueryFilter
     });
   }
 
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueDateIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'revenueDate',
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueDateIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'revenueDate',
+      ));
+    });
+  }
+
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueDateEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -351,7 +395,7 @@ extension RevenuesQueryFilter
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDateGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -366,7 +410,7 @@ extension RevenuesQueryFilter
   }
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueDateLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -381,8 +425,8 @@ extension RevenuesQueryFilter
   }
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueDateBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -469,8 +513,26 @@ extension RevenuesQueryFilter
   }
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueDescriptionIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'revenueDescription',
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueDescriptionIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'revenueDescription',
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -484,7 +546,7 @@ extension RevenuesQueryFilter
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -500,7 +562,7 @@ extension RevenuesQueryFilter
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -516,8 +578,8 @@ extension RevenuesQueryFilter
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueDescriptionBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -604,8 +666,26 @@ extension RevenuesQueryFilter
     });
   }
 
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueSourceIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'revenueSource',
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueSourceIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'revenueSource',
+      ));
+    });
+  }
+
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueSourceEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -619,7 +699,7 @@ extension RevenuesQueryFilter
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueSourceGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -634,7 +714,7 @@ extension RevenuesQueryFilter
   }
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueSourceLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -649,8 +729,8 @@ extension RevenuesQueryFilter
   }
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueSourceBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -738,8 +818,25 @@ extension RevenuesQueryFilter
     });
   }
 
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueTitleIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'revenueTitle',
+      ));
+    });
+  }
+
+  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
+      revenueTitleIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'revenueTitle',
+      ));
+    });
+  }
+
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueTitleEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -753,7 +850,7 @@ extension RevenuesQueryFilter
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
       revenueTitleGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -768,7 +865,7 @@ extension RevenuesQueryFilter
   }
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueTitleLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -783,8 +880,8 @@ extension RevenuesQueryFilter
   }
 
   QueryBuilder<Revenues, Revenues, QAfterFilterCondition> revenueTitleBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -871,142 +968,6 @@ extension RevenuesQueryFilter
       ));
     });
   }
-
-  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
-      revenueUpdateDateEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'revenueUpdateDate',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
-      revenueUpdateDateGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'revenueUpdateDate',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
-      revenueUpdateDateLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'revenueUpdateDate',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
-      revenueUpdateDateBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'revenueUpdateDate',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
-      revenueUpdateDateStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'revenueUpdateDate',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
-      revenueUpdateDateEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'revenueUpdateDate',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
-      revenueUpdateDateContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'revenueUpdateDate',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
-      revenueUpdateDateMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'revenueUpdateDate',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
-      revenueUpdateDateIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'revenueUpdateDate',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<Revenues, Revenues, QAfterFilterCondition>
-      revenueUpdateDateIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'revenueUpdateDate',
-        value: '',
-      ));
-    });
-  }
 }
 
 extension RevenuesQueryObject
@@ -1074,18 +1035,6 @@ extension RevenuesQuerySortBy on QueryBuilder<Revenues, Revenues, QSortBy> {
   QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueTitleDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'revenueTitle', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueUpdateDate() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'revenueUpdateDate', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Revenues, Revenues, QAfterSortBy> sortByRevenueUpdateDateDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'revenueUpdateDate', Sort.desc);
     });
   }
 }
@@ -1164,18 +1113,6 @@ extension RevenuesQuerySortThenBy
       return query.addSortBy(r'revenueTitle', Sort.desc);
     });
   }
-
-  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByRevenueUpdateDate() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'revenueUpdateDate', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Revenues, Revenues, QAfterSortBy> thenByRevenueUpdateDateDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'revenueUpdateDate', Sort.desc);
-    });
-  }
 }
 
 extension RevenuesQueryWhereDistinct
@@ -1215,14 +1152,6 @@ extension RevenuesQueryWhereDistinct
       return query.addDistinctBy(r'revenueTitle', caseSensitive: caseSensitive);
     });
   }
-
-  QueryBuilder<Revenues, Revenues, QDistinct> distinctByRevenueUpdateDate(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'revenueUpdateDate',
-          caseSensitive: caseSensitive);
-    });
-  }
 }
 
 extension RevenuesQueryProperty
@@ -1233,40 +1162,34 @@ extension RevenuesQueryProperty
     });
   }
 
-  QueryBuilder<Revenues, double, QQueryOperations> revenueAmountProperty() {
+  QueryBuilder<Revenues, double?, QQueryOperations> revenueAmountProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'revenueAmount');
     });
   }
 
-  QueryBuilder<Revenues, String, QQueryOperations> revenueDateProperty() {
+  QueryBuilder<Revenues, String?, QQueryOperations> revenueDateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'revenueDate');
     });
   }
 
-  QueryBuilder<Revenues, String, QQueryOperations>
+  QueryBuilder<Revenues, String?, QQueryOperations>
       revenueDescriptionProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'revenueDescription');
     });
   }
 
-  QueryBuilder<Revenues, String, QQueryOperations> revenueSourceProperty() {
+  QueryBuilder<Revenues, String?, QQueryOperations> revenueSourceProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'revenueSource');
     });
   }
 
-  QueryBuilder<Revenues, String, QQueryOperations> revenueTitleProperty() {
+  QueryBuilder<Revenues, String?, QQueryOperations> revenueTitleProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'revenueTitle');
-    });
-  }
-
-  QueryBuilder<Revenues, String, QQueryOperations> revenueUpdateDateProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'revenueUpdateDate');
     });
   }
 }

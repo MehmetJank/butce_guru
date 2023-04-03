@@ -34,10 +34,10 @@ class MyApp extends StatelessWidget {
         title: 'Butce Guru',
         debugShowCheckedModeBanner: false,
         routes: {
+          '/homeScreen': (context) => const HomeScreen(),
           '/expense/add': (context) => const ExpenseAddScreen(),
           '/revenue/add': (context) => const RevenueAddScreen(),
           '/widgettestscreen': (context) => const WidgetTestScreen(),
-          '/homeScreen': (context) => const HomeScreenBirlestirmeTest(),
         },
         theme: ThemeData(
           primarySwatch: Colors.green,

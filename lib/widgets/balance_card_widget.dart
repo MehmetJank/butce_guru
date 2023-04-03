@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 
-class BalanceCard extends StatelessWidget {
+class BalanceCard extends StatefulWidget {
   final String balance;
   final String income;
   final String expense;
+  final bool amountLoading;
 
   BalanceCard({
     required this.balance,
     required this.expense,
     required this.income,
+    required this.amountLoading,
   });
 
+  @override
+  State<BalanceCard> createState() => _BalanceCardState();
+}
+
+class _BalanceCardState extends State<BalanceCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,10 +36,13 @@ class BalanceCard extends StatelessWidget {
                 'V A R L I K L A R',
                 style: TextStyle(color: Colors.black87, fontSize: 20),
               ),
-              Text(
-                '₺$balance',
-                style: const TextStyle(color: Colors.black87, fontSize: 50),
-              ),
+              widget.amountLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : Text(
+                      '₺${widget.balance}',
+                      style:
+                          const TextStyle(color: Colors.black87, fontSize: 50),
+                    ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
@@ -66,12 +76,19 @@ class BalanceCard extends StatelessWidget {
                             const SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              '₺$income',
-                              style: const TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                            widget.amountLoading
+                                ? const Center(
+                                    child: SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: CircularProgressIndicator()))
+                                : Text(
+                                    '₺${widget.income}',
+                                    style: const TextStyle(
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                           ],
                         )
                       ],
@@ -104,12 +121,19 @@ class BalanceCard extends StatelessWidget {
                             const SizedBox(
                               height: 5,
                             ),
-                            Text(
-                              '₺$expense',
-                              style: const TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                            widget.amountLoading
+                                ? const SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: Center(
+                                        child: CircularProgressIndicator()),
+                                  )
+                                : Text(
+                                    '₺${widget.expense}',
+                                    style: const TextStyle(
+                                        color: Colors.black87,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                           ],
                         )
                       ],

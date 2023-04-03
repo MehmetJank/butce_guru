@@ -9,7 +9,7 @@ class CustomTextFormField extends StatelessWidget {
     Key? key,
     required this.labelText,
     required this.hintText,
-    required this.onChanged,
+    this.onChanged,
     required this.icon,
     required this.keyboardType,
     this.inputFormatters,
@@ -19,11 +19,11 @@ class CustomTextFormField extends StatelessWidget {
 
   final String? labelText;
   final String? hintText;
-  final void Function(String) onChanged;
+  final void Function(String)? onChanged;
   final IconData icon;
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
-  final void Function(String)? onTap;
+  final void Function(dynamic)? onTap;
 
   @override
   Widget build(BuildContext context) {
