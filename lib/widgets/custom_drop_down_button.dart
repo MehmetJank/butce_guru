@@ -1,8 +1,8 @@
 import 'package:butce_guru/constants/color.dart';
 import 'package:flutter/material.dart';
 
-class MyDropDownButton extends StatefulWidget {
-  const MyDropDownButton({
+class CustomDropDownButton extends StatefulWidget {
+  const CustomDropDownButton({
     Key? key,
     this.value,
     required this.onChanged,
@@ -18,10 +18,10 @@ class MyDropDownButton extends StatefulWidget {
   final String name;
 
   @override
-  _MyDropDownButtonState createState() => _MyDropDownButtonState();
+  _CustomDropDownButtonState createState() => _CustomDropDownButtonState();
 }
 
-class _MyDropDownButtonState extends State<MyDropDownButton> {
+class _CustomDropDownButtonState extends State<CustomDropDownButton> {
   String? currentSelectedValue;
 
   @override

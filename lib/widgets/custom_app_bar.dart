@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final int currentIndex;
-  final Function(int) onTabSelected;
+  final String title;
 
   const CustomAppBar({
-    super.key,
-    required this.currentIndex,
-    required this.onTabSelected,
-  });
+    Key? key,
+    required this.title,
+    required this.onPressBack,
+  }) : super(key: key);
+
+  final String onPressBack;
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +28,22 @@ class CustomAppBar extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                Navigator.popAndPushNamed(context, '/widgettestscreen');
+                Navigator.pushNamed(context, onPressBack);
               },
               icon: const Icon(Icons.arrow_back, color: Colors.white),
             ),
-            const Expanded(
+            Expanded(
               child: Text(
-                '-',
+                title,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
+            const SizedBox(width: 40),
           ],
         ),
       ),

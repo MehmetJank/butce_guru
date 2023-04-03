@@ -2,15 +2,12 @@ import 'dart:ui';
 
 import 'package:butce_guru/database/expenses.dart';
 import 'package:butce_guru/database/revenues.dart';
-import 'package:butce_guru/screens/expensesScreen/expenses_add_test_screen.dart';
-import 'package:butce_guru/screens/test/plus_button.dart';
-import 'package:butce_guru/screens/test/top_card.dart';
+import 'package:butce_guru/screens/expensesScreen/expense_add_screen.dart';
 import 'package:butce_guru/widgets/background_widget.dart';
+import 'package:butce_guru/widgets/balance_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
-
-import 'my_transaction.dart';
 
 class HomeScreenBirlestirmeTest extends StatefulWidget {
   const HomeScreenBirlestirmeTest({Key? key}) : super(key: key);
@@ -52,31 +49,35 @@ class _HomeScreenBirlestirmeTestState extends State<HomeScreenBirlestirmeTest> {
   addToList() {
     mergedList.clear(); // clear the list before adding new items
     for (var expense in expensesList) {
-      mergedList.add({
-        "id": expense.id,
-        "type": "expenses",
-        "title": expense.expenseTitle,
-        "amount": expense.expenseAmount,
-        "description": expense.expenseDescription,
-        "date": expense.expenseDate,
-        "updateDate": expense.expenseUpdateDate,
-        "category": expense.expenseCategory,
-        "payment": expense.paymentMethod,
-        "bankName": expense.bankName,
-      });
+      mergedList.add(
+        {
+          "id": expense.id,
+          "type": "expenses",
+          "title": expense.expenseTitle,
+          "amount": expense.expenseAmount,
+          "description": expense.expenseDescription,
+          "date": expense.expenseDate,
+          "updateDate": expense.expenseUpdateDate,
+          "category": expense.expenseCategory,
+          "payment": expense.paymentMethod,
+          "bankName": expense.bankName,
+        },
+      );
     }
 
     for (var revenue in revenuesList) {
-      mergedList.add({
-        "id": revenue.id,
-        "type": "revenues",
-        "title": revenue.revenueTitle,
-        "amount": revenue.revenueAmount,
-        "description": revenue.revenueDescription,
-        "date": revenue.revenueDate,
-        "updateDate": revenue.revenueUpdateDate,
-        "source": revenue.revenueSource,
-      });
+      mergedList.add(
+        {
+          "id": revenue.id,
+          "type": "revenues",
+          "title": revenue.revenueTitle,
+          "amount": revenue.revenueAmount,
+          "description": revenue.revenueDescription,
+          "date": revenue.revenueDate,
+          "updateDate": revenue.revenueUpdateDate,
+          "source": revenue.revenueSource,
+        },
+      );
     }
     mergedList.sort((a, b) => b["updateDate"].compareTo(a["updateDate"]));
   }
@@ -85,11 +86,13 @@ class _HomeScreenBirlestirmeTestState extends State<HomeScreenBirlestirmeTest> {
     final netAmount = await calculateNetAmount(context, isar);
     final totalRevenueAmount = await getTotalRevenueAmount(isar);
     final totalExpenseAmount = await getTotalExpenseAmount(isar);
-    setState(() {
-      _netAmount = netAmount;
-      _totalRevenueAmount = totalRevenueAmount;
-      _totalExpenseAmount = totalExpenseAmount;
-    });
+    setState(
+      () {
+        _netAmount = netAmount;
+        _totalRevenueAmount = totalRevenueAmount;
+        _totalExpenseAmount = totalExpenseAmount;
+      },
+    );
   }
 
   Widget checkEmpty(
@@ -109,10 +112,11 @@ class _HomeScreenBirlestirmeTestState extends State<HomeScreenBirlestirmeTest> {
       child: Scaffold(
         body: Stack(
           children: [
-            const Background(),
+            const CustomBackground(
+                assetImage: "assets/backgrounds/home_screen_background.jpg"),
             Column(
               children: [
-                TopNeuCard(
+                BalanceCard(
                   balance: _netAmount.toString(),
                   expense: _totalExpenseAmount.toString(),
                   income: _totalRevenueAmount.toString(),
@@ -296,45 +300,61 @@ class _HomeScreenBirlestirmeTestState extends State<HomeScreenBirlestirmeTest> {
                   showDialog(
                     context: context,
                     builder: (context) {
-                      return AlertDialog(
-                        title: const Center(
-                          child: Text('Add Transaction'),
+                      return BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 4,
+                          sigmaY: 4,
                         ),
-                        content: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ExpenseAddScreen()),
-                                );
-                              },
-                              child: const Text('Revenue'),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            color: Colors.black.withOpacity(0.1),
+                            child: AlertDialog(
+                              title: const Center(
+                                child: Text('Add Transaction'),
+                              ),
+                              content: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, '/revenue/add');
+                                    },
+                                    child: const Text('Revenue'),
+                                  ),
+                                  const Text(
+                                    'OR',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, '/expense/add');
+                                    },
+                                    child: const Text('Expense'),
+                                  ),
+                                ],
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text('Cancel'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
                             ),
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ExpenseAddScreen()),
-                                );
-                              },
-                              child: const Text('Expense'),
-                            ),
-                          ],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: const Text('Cancel'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
                           ),
-                        ],
+                        ),
                       );
                     },
                   );

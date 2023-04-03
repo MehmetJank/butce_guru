@@ -34,72 +34,16 @@ class _WidgetTestScreenState extends State<WidgetTestScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/expenses/list');
-                      },
-                      child: const Text('Test Expenses List'),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 8.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
                         Navigator.pushNamed(context, '/revenue/add');
                       },
                       child: const Text('Test Income Add'),
                     ),
-                    const SizedBox(
-                      width: 8.0,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/revenue/list');
-                      },
-                      child: const Text('Test Incomes List'),
-                    ),
                   ],
                 ),
                 const SizedBox(height: 8.0),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                  ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/expenses/final');
-                  },
-                  child: const Text('Test Expenses Final'),
-                ),
-                const SizedBox(height: 8.0),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/testScreen');
-                  },
-                  child: const Text('Test Incomes Final'),
-                ),
-                const SizedBox(height: 8.0),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/filterScreen');
-                  },
-                  child: const Text('Test Incomes Final'),
-                ),
-                const SizedBox(height: 8.0),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/homeScreenTest');
+                    Navigator.pushNamed(context, '/homeScreen');
                   },
                   child: const Text('Test Home Screen'),
                 ),

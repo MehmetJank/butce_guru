@@ -2,10 +2,10 @@ import 'package:butce_guru/constants/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MyTextFormField extends StatelessWidget {
+class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
 
-  const MyTextFormField({
+  const CustomTextFormField({
     Key? key,
     required this.labelText,
     required this.hintText,
