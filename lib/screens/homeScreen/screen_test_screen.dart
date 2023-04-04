@@ -47,13 +47,6 @@ class _WidgetTestScreenState extends State<WidgetTestScreen> {
                   },
                   child: const Text('Test Home Screen'),
                 ),
-                // const SizedBox(height: 8.0),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     Navigator.pushNamed(context, '/screenTest');
-                //   },
-                //   child: const Text('Test Combined Data'),
-                // ),
               ],
             ),
           ),

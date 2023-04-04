@@ -6,7 +6,8 @@ class BalanceCard extends StatefulWidget {
   final String expense;
   final bool amountLoading;
 
-  BalanceCard({
+  const BalanceCard({
+    super.key,
     required this.balance,
     required this.expense,
     required this.income,

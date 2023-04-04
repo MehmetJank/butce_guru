@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Container TransactionWidget(Map<String, dynamic> item) {
+Container transactionWidget(Map<String, dynamic> item) {
   return Container(
     margin: const EdgeInsets.fromLTRB(6, 1, 6, 1),
     padding: const EdgeInsets.all(18),

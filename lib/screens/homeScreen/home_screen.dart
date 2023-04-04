@@ -100,14 +100,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   editTransaction(int id, String type) async {
     if (type == "expenses") {
-      print("expenses");
       Navigator.pushNamed(
         context,
         '/expense/add',
         arguments: id,
       );
     } else if (type == "revenues") {
-      print("revenues");
       Navigator.pushNamed(
         context,
         '/revenue/add',
@@ -187,34 +185,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    checkEmpty(
+                                                    CheckEmpty(
                                                         title: "Miktar: ",
                                                         value: item["amount"]
                                                             .toString()),
-                                                    checkEmpty(
+                                                    CheckEmpty(
                                                         title: "Açıklama: ",
                                                         value: item[
                                                             "description"]),
-                                                    checkEmpty(
+                                                    CheckEmpty(
                                                         title: "Tarih: ",
                                                         value: item["date"]),
-                                                    checkEmpty(
+                                                    CheckEmpty(
                                                         title: "Kategori: ",
                                                         value:
                                                             item["category"] ??
                                                                 ""),
-                                                    checkEmpty(
+                                                    CheckEmpty(
                                                         title:
                                                             "Ödeme Yöntemi: ",
                                                         value:
                                                             item["payment"] ??
                                                                 ""),
-                                                    checkEmpty(
+                                                    CheckEmpty(
                                                         title: "Banka: ",
                                                         value:
                                                             item["bankName"] ??
                                                                 ""),
-                                                    checkEmpty(
+                                                    CheckEmpty(
                                                         title: "Kaynak: ",
                                                         value: item["source"] ??
                                                             "")
@@ -256,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           },
                                         );
                                       },
-                                      child: TransactionWidget(item),
+                                      child: transactionWidget(item),
                                     );
                                   },
                                 ),

@@ -207,7 +207,7 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
                       },
                       child: Text(
                         id == null ? 'Geliri Ekle' : 'Geliri Güncelle',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

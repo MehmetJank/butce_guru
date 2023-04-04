@@ -283,7 +283,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                       },
                       child: Text(
                         id == null ? 'Gider Ekle' : "Gideri Güncelle",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

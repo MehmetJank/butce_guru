@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class checkEmpty extends StatelessWidget {
-  const checkEmpty({
+class CheckEmpty extends StatelessWidget {
+  const CheckEmpty({
     super.key,
     required this.title,
     required this.value,
