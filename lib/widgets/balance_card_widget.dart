@@ -28,6 +28,13 @@ class _BalanceCardState extends State<BalanceCard> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Colors.white24.withOpacity(0.4),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.4),
+              blurRadius: 10,
+              spreadRadius: 2,
+            ),
+          ],
         ),
         child: Center(
           child: Column(

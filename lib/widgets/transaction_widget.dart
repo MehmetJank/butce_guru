@@ -9,9 +9,9 @@ Container transactionWidget(Map<String, dynamic> item) {
       borderRadius: BorderRadius.circular(16),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.2),
-          spreadRadius: 1,
-          blurRadius: 1,
+          color: Colors.black.withOpacity(0.4),
+          blurRadius: 10,
+          spreadRadius: 2,
           offset: const Offset(0, 1),
         ),
       ],

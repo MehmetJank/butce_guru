@@ -138,132 +138,138 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             const CustomBackground(
                 assetImage: "assets/backgrounds/home_screen_background.jpg"),
-            Column(
-              children: [
-                BalanceCard(
-                  balance: _netAmount.toString(),
-                  expense: _totalExpenseAmount.toString(),
-                  income: _totalRevenueAmount.toString(),
-                  amountLoading: _amountLoading,
-                ),
-                Expanded(
-                  child: Center(
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Expanded(
-                          child: _listLoading
-                              ? const Center(
-                                  child: SizedBox(
-                                      height: 50,
-                                      width: 50,
-                                      child: CircularProgressIndicator()),
-                                )
-                              : ListView.separated(
-                                  separatorBuilder: (context, index) =>
-                                      const Divider(),
-                                  itemCount: mergedList.length,
-                                  itemBuilder: (context, index) {
-                                    final item = mergedList[index];
-                                    return GestureDetector(
-                                      onTap: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return CustomBlurEffect(
-                                              child: AlertDialog(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                ),
-                                                title: Text(item["title"]),
-                                                content: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    CheckEmpty(
-                                                        title: "Miktar: ",
-                                                        value: item["amount"]
-                                                            .toString()),
-                                                    CheckEmpty(
-                                                        title: "Açıklama: ",
-                                                        value: item[
-                                                            "description"]),
-                                                    CheckEmpty(
-                                                        title: "Tarih: ",
-                                                        value: item["date"]),
-                                                    CheckEmpty(
-                                                        title: "Kategori: ",
-                                                        value:
-                                                            item["category"] ??
-                                                                ""),
-                                                    CheckEmpty(
-                                                        title:
-                                                            "Ödeme Yöntemi: ",
-                                                        value:
-                                                            item["payment"] ??
-                                                                ""),
-                                                    CheckEmpty(
-                                                        title: "Banka: ",
-                                                        value:
-                                                            item["bankName"] ??
-                                                                ""),
-                                                    CheckEmpty(
-                                                        title: "Kaynak: ",
-                                                        value: item["source"] ??
-                                                            "")
+            Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Column(
+                children: [
+                  BalanceCard(
+                    balance: _netAmount.toString(),
+                    expense: _totalExpenseAmount.toString(),
+                    income: _totalRevenueAmount.toString(),
+                    amountLoading: _amountLoading,
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Expanded(
+                            child: _listLoading
+                                ? const Center(
+                                    child: SizedBox(
+                                        height: 50,
+                                        width: 50,
+                                        child: CircularProgressIndicator()),
+                                  )
+                                : ListView.separated(
+                                    separatorBuilder: (context, index) =>
+                                        const Divider(),
+                                    itemCount: mergedList.length,
+                                    itemBuilder: (context, index) {
+                                      final item = mergedList[index];
+                                      return GestureDetector(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return CustomBlurEffect(
+                                                child: AlertDialog(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16),
+                                                  ),
+                                                  title: Text(item["title"]),
+                                                  content: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      CheckEmpty(
+                                                          title: "Miktar: ",
+                                                          value: item["amount"]
+                                                              .toString()),
+                                                      CheckEmpty(
+                                                          title: "Açıklama: ",
+                                                          value: item[
+                                                              "description"]),
+                                                      CheckEmpty(
+                                                          title: "Tarih: ",
+                                                          value: item["date"]),
+                                                      CheckEmpty(
+                                                          title: "Kategori: ",
+                                                          value: item[
+                                                                  "category"] ??
+                                                              ""),
+                                                      CheckEmpty(
+                                                          title:
+                                                              "Ödeme Yöntemi: ",
+                                                          value:
+                                                              item["payment"] ??
+                                                                  ""),
+                                                      CheckEmpty(
+                                                          title: "Banka: ",
+                                                          value: item[
+                                                                  "bankName"] ??
+                                                              ""),
+                                                      CheckEmpty(
+                                                          title: "Kaynak: ",
+                                                          value:
+                                                              item["source"] ??
+                                                                  "")
+                                                    ],
+                                                  ),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        deleteTransaction(
+                                                            item["id"],
+                                                            item["type"]);
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: const Text(
+                                                        'Delete',
+                                                        style: TextStyle(
+                                                            color: Colors.red),
+                                                      ),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        editTransaction(
+                                                            item["id"],
+                                                            item["type"]);
+                                                      },
+                                                      child: const Text('Edit'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: const Text(
+                                                        'Ok',
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      deleteTransaction(
-                                                          item["id"],
-                                                          item["type"]);
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: const Text(
-                                                      'Delete',
-                                                      style: TextStyle(
-                                                          color: Colors.red),
-                                                    ),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      editTransaction(
-                                                          item["id"],
-                                                          item["type"]);
-                                                    },
-                                                    child: const Text('Edit'),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: const Text(
-                                                      'Ok',
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                      child: transactionWidget(item),
-                                    );
-                                  },
-                                ),
-                        ),
-                      ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: transactionWidget(item),
+                                      );
+                                    },
+                                  ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             // const CustomPlusButton(),
           ],
