@@ -91,6 +91,28 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
     );
   }
 
+  bool checkEmptyFields() {
+    if (_expenseTitleController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Expense title cannot be empty'),
+        ),
+      );
+      return true;
+    }
+
+    if (_expenseAmountController.text.isEmpty ||
+        double.parse(_expenseAmountController.text) <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Expense amount cannot be 0 or less'),
+        ),
+      );
+      return true;
+    }
+    return false;
+  }
+
   void editExpense(int id) async {
     final expense = await isar.expenses.where().idEqualTo(id).findFirst();
     if (expense != null) {
@@ -252,34 +274,36 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                         minimumSize: const Size(200, 50),
                       ),
                       onPressed: () async {
-                        id == null
-                            ? await addExpense(
-                                Isar.autoIncrement,
-                                _expenseTitleController.text,
-                                _expenseDescriptionController.text,
-                                double.parse(_expenseAmountController.text),
-                                _expenseDateController.text.isEmpty == true
-                                    ? DateFormat("dd/MM/yyyy HH:mm:ss")
-                                        .format(DateTime.now())
-                                    : _expenseDateController.text,
-                                _expenseCategoryController.text,
-                                _paymentMethodController.text,
-                                _bankNameController.text,
-                              )
-                            : addExpense(
-                                id!,
-                                _expenseTitleController.text,
-                                _expenseDescriptionController.text,
-                                double.parse(_expenseAmountController.text),
-                                _expenseDateController.text.isEmpty == true
-                                    ? DateFormat("dd/MM/yyyy HH:mm:ss")
-                                        .format(DateTime.now())
-                                    : _expenseDateController.text,
-                                _expenseCategoryController.text,
-                                _paymentMethodController.text,
-                                _bankNameController.text,
-                              );
-                        Navigator.pushNamed(context, '/homeScreen');
+                        if (!checkEmptyFields()) {
+                          id == null
+                              ? await addExpense(
+                                  Isar.autoIncrement,
+                                  _expenseTitleController.text,
+                                  _expenseDescriptionController.text,
+                                  double.parse(_expenseAmountController.text),
+                                  _expenseDateController.text.isEmpty == true
+                                      ? DateFormat("dd/MM/yyyy HH:mm:ss")
+                                          .format(DateTime.now())
+                                      : _expenseDateController.text,
+                                  _expenseCategoryController.text,
+                                  _paymentMethodController.text,
+                                  _bankNameController.text,
+                                )
+                              : addExpense(
+                                  id!,
+                                  _expenseTitleController.text,
+                                  _expenseDescriptionController.text,
+                                  double.parse(_expenseAmountController.text),
+                                  _expenseDateController.text.isEmpty == true
+                                      ? DateFormat("dd/MM/yyyy HH:mm:ss")
+                                          .format(DateTime.now())
+                                      : _expenseDateController.text,
+                                  _expenseCategoryController.text,
+                                  _paymentMethodController.text,
+                                  _bankNameController.text,
+                                );
+                          Navigator.pushNamed(context, '/homeScreen');
+                        }
                       },
                       child: Text(
                         id == null ? 'Gider Ekle' : "Gideri Güncelle",

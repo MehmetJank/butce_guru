@@ -10,7 +10,7 @@ import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
 
 class RevenueAddScreen extends StatefulWidget {
-  const RevenueAddScreen({super.key});
+  const RevenueAddScreen({Key? key}) : super(key: key);
 
   @override
   State<RevenueAddScreen> createState() => _RevenueAddScreenState();
@@ -64,6 +64,28 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
         content: Text('Revenue added'),
       ),
     );
+  }
+
+  bool checkEmptyFields() {
+    if (_revenueTitleController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Revenue title cannot be empty'),
+        ),
+      );
+      return true;
+    }
+
+    if (_revenueAmountController.text.isEmpty ||
+        double.parse(_revenueAmountController.text) <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Revenue amount cannot be 0 or less'),
+        ),
+      );
+      return true;
+    }
+    return false;
   }
 
   void editRevenue(int id) async {
@@ -180,30 +202,32 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
                         minimumSize: const Size(200, 50),
                       ),
                       onPressed: () async {
-                        id == null
-                            ? await addRevenue(
-                                Isar.autoIncrement,
-                                _revenueTitleController.text,
-                                _revenueDescriptionController.text,
-                                double.parse(_revenueAmountController.text),
-                                _revenueSourceController.text,
-                                _revenueDateController.text.isEmpty == true
-                                    ? DateFormat("dd/MM/yyyy HH:mm:ss")
-                                        .format(DateTime.now())
-                                    : _revenueDateController.text,
-                              )
-                            : await addRevenue(
-                                id!,
-                                _revenueTitleController.text,
-                                _revenueDescriptionController.text,
-                                double.parse(_revenueAmountController.text),
-                                _revenueSourceController.text,
-                                _revenueDateController.text.isEmpty == true
-                                    ? DateFormat("dd/MM/yyyy HH:mm:ss")
-                                        .format(DateTime.now())
-                                    : _revenueDateController.text,
-                              );
-                        Navigator.pushNamed(context, '/homeScreen');
+                        if (!checkEmptyFields()) {
+                          id == null
+                              ? await addRevenue(
+                                  Isar.autoIncrement,
+                                  _revenueTitleController.text,
+                                  _revenueDescriptionController.text,
+                                  double.parse(_revenueAmountController.text),
+                                  _revenueSourceController.text,
+                                  _revenueDateController.text.isEmpty == true
+                                      ? DateFormat("dd/MM/yyyy HH:mm:ss")
+                                          .format(DateTime.now())
+                                      : _revenueDateController.text,
+                                )
+                              : await addRevenue(
+                                  id!,
+                                  _revenueTitleController.text,
+                                  _revenueDescriptionController.text,
+                                  double.parse(_revenueAmountController.text),
+                                  _revenueSourceController.text,
+                                  _revenueDateController.text.isEmpty == true
+                                      ? DateFormat("dd/MM/yyyy HH:mm:ss")
+                                          .format(DateTime.now())
+                                      : _revenueDateController.text,
+                                );
+                          Navigator.pushNamed(context, '/homeScreen');
+                        }
                       },
                       child: Text(
                         id == null ? 'Geliri Ekle' : 'Geliri Güncelle',
