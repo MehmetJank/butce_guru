@@ -5,12 +5,14 @@ import 'package:butce_guru/widgets/custom_app_bar.dart';
 import 'package:butce_guru/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
 
 class RevenueAddScreen extends StatefulWidget {
-  const RevenueAddScreen({Key? key}) : super(key: key);
+  const RevenueAddScreen({Key? key, this.editID}) : super(key: key);
+  final String? editID;
 
   @override
   State<RevenueAddScreen> createState() => _RevenueAddScreenState();
@@ -30,12 +32,8 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
   void initState() {
     super.initState();
     isar = Provider.of<Isar>(context, listen: false);
-  }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    id = ModalRoute.of(context)!.settings.arguments as int?;
+    id = int.tryParse(widget.editID!);
     if (id != null) {
       editRevenue(id!);
     }
@@ -114,7 +112,7 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
               ),
               CustomAppBar(
                 title: id == null ? 'Geliri Ekle' : 'Geliri Güncelle',
-                onPressBack: "/homeScreen",
+                onPressBack: "/",
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 65, 20, 0),
@@ -226,7 +224,9 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
                                           .format(DateTime.now())
                                       : _revenueDateController.text,
                                 );
-                          Navigator.pushNamed(context, '/homeScreen');
+                          if (!mounted) return;
+
+                          GoRouter.of(context).push('/HomeScreen');
                         }
                       },
                       child: Text(

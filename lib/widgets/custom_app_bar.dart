@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;
@@ -28,7 +29,7 @@ class CustomAppBar extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, onPressBack);
+                GoRouter.of(context).go(onPressBack);
               },
               icon: const Icon(Icons.arrow_back, color: Colors.white),
             ),

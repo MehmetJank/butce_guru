@@ -8,6 +8,7 @@ import 'package:butce_guru/widgets/check_empty_widget.dart';
 import 'package:butce_guru/widgets/custom_plus_button.dart';
 import 'package:butce_guru/widgets/transaction_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
 
@@ -100,24 +101,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   editTransaction(int id, String type) async {
     if (type == "expenses") {
-      Navigator.pushNamed(
-        context,
-        '/expense/add',
-        arguments: id,
-      );
+      Navigator.pop(context);
+      context.push('/expense/add/$id');
     } else if (type == "revenues") {
-      Navigator.pushNamed(
-        context,
-        '/revenue/add',
-        arguments: id,
-      );
+      Navigator.pop(context);
+      context.push('/revenue/add/$id');
     }
   }
 
   Future<void> _calculateNetAmount() async {
     await Future.delayed(const Duration(milliseconds: 500));
 
-    final netAmount = await calculateNetAmount(context, isar);
+    final netAmount = await calculateNetAmount(isar);
     final totalRevenueAmount = await getTotalRevenueAmount(isar);
     final totalExpenseAmount = await getTotalExpenseAmount(isar);
     setState(

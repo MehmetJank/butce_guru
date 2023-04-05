@@ -1,9 +1,8 @@
 import 'package:butce_guru/database/expenses.dart';
 import 'package:butce_guru/database/revenues.dart';
-import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 
-Future<double> calculateNetAmount(BuildContext context, Isar isar) async {
+Future<double> calculateNetAmount(Isar isar) async {
   double totalRevenueAmount = await getTotalRevenueAmount(isar);
   double totalExpenseAmount = await getTotalExpenseAmount(isar);
   return totalRevenueAmount - totalExpenseAmount;

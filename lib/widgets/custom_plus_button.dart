@@ -1,7 +1,6 @@
-import 'package:butce_guru/screens/expensesScreen/expense_add_screen.dart';
-import 'package:butce_guru/screens/revenuesScreen/revenue_add_screen.dart';
 import 'package:butce_guru/widgets/blur_effect_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomPlusButton extends StatelessWidget {
   const CustomPlusButton({
@@ -25,10 +24,9 @@ class CustomPlusButton extends StatelessWidget {
                   children: <Widget>[
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RevenueAddScreen()),
+                        Navigator.of(context).pop();
+                        GoRouter.of(context).go(
+                          '/revenue/add/editID',
                         );
                       },
                       child: const Text('Revenue'),
@@ -44,10 +42,9 @@ class CustomPlusButton extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ExpenseAddScreen()),
+                        Navigator.of(context).pop();
+                        GoRouter.of(context).go(
+                          '/expense/add/editID',
                         );
                       },
                       child: const Text('Expense'),

@@ -5,6 +5,7 @@ import 'package:butce_guru/widgets/custom_drop_down_button.dart';
 import 'package:butce_guru/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,8 @@ import 'package:provider/provider.dart';
 import '../../constants/color.dart';
 
 class ExpenseAddScreen extends StatefulWidget {
-  const ExpenseAddScreen({super.key});
+  const ExpenseAddScreen({super.key, this.editID});
+  final String? editID;
 
   @override
   State<ExpenseAddScreen> createState() => _ExpenseAddScreenState();
@@ -28,18 +30,13 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
   final _paymentMethodController = TextEditingController();
   final _bankNameController = TextEditingController();
 
-  int? id; //edit tusundan gelecek id
+  int? id;
 
   @override
   void initState() {
     super.initState();
     isar = Provider.of<Isar>(context, listen: false);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    id = ModalRoute.of(context)!.settings.arguments as int?;
+    id = int.tryParse(widget.editID!);
     if (id != null) {
       editExpense(id!);
     }
@@ -302,7 +299,8 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                                   _paymentMethodController.text,
                                   _bankNameController.text,
                                 );
-                          Navigator.pushNamed(context, '/homeScreen');
+                          if (!mounted) return;
+                          GoRouter.of(context).push('/HomeScreen');
                         }
                       },
                       child: Text(

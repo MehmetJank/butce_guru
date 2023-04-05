@@ -18,10 +18,10 @@ class CustomDropDownButton extends StatefulWidget {
   final String name;
 
   @override
-  _CustomDropDownButtonState createState() => _CustomDropDownButtonState();
+  CustomDropDownButtonState createState() => CustomDropDownButtonState();
 }
 
-class _CustomDropDownButtonState extends State<CustomDropDownButton> {
+class CustomDropDownButtonState extends State<CustomDropDownButton> {
   String? currentSelectedValue;
 
   @override
