@@ -7,7 +7,6 @@ import 'database/expenses.dart';
 import 'database/revenues.dart';
 import 'screens/expensesScreen/expense_add_screen.dart';
 import 'screens/homeScreen/home_screen.dart';
-import 'screens/homeScreen/screen_test_screen.dart';
 import 'screens/revenuesScreen/revenue_add_screen.dart';
 import 'widgets/custom_transition.dart';
 
@@ -59,17 +58,11 @@ final _router = GoRouter(
             end: 0);
       },
     ),
-    GoRoute(
-      path: '/',
-      pageBuilder: (context, state) => const MaterialPage(
-        child: WidgetTestScreen(),
-      ),
-    ),
   ],
   errorPageBuilder: (context, state) => const MaterialPage(
     child: Scaffold(
       body: Center(
-        child: Text('Error'),
+        child: Text('Error!'),
       ),
     ),
   ),
