@@ -5,9 +5,9 @@ import 'package:isar/isar.dart';
 
 import 'database/expenses.dart';
 import 'database/revenues.dart';
-import 'screens/expensesScreen/expense_add_screen.dart';
-import 'screens/homeScreen/home_screen.dart';
-import 'screens/revenuesScreen/revenue_add_screen.dart';
+import 'screens/expense_add_screen.dart';
+import 'screens/home_screen.dart';
+import 'screens/revenue_add_screen.dart';
 import 'widgets/custom_transition.dart';
 
 void main() async {

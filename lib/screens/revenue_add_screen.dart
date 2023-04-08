@@ -5,11 +5,11 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 
-import '../../constants/color.dart';
-import '../../database/revenues.dart';
-import '../../widgets/background_widget.dart';
-import '../../widgets/custom_app_bar.dart';
-import '../../widgets/custom_text_form_field.dart';
+import '../constants/color.dart';
+import '../database/revenues.dart';
+import '../widgets/background_widget.dart';
+import '../widgets/custom_app_bar.dart';
+import '../widgets/custom_text_form_field.dart';
 
 class RevenueAddScreen extends StatefulWidget {
   const RevenueAddScreen({super.key, this.editID});

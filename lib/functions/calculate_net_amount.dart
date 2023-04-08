@@ -1,7 +1,7 @@
 import 'package:isar/isar.dart';
 
-import '../../database/expenses.dart';
-import '../../database/revenues.dart';
+import '../database/expenses.dart';
+import '../database/revenues.dart';
 
 Future<double> calculateNetAmount(Isar isar) async {
   double totalRevenueAmount = await getTotalRevenueAmount(isar);

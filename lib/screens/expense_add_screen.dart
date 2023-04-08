@@ -5,12 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 
-import '../../constants/color.dart';
-import '../../database/expenses.dart';
-import '../../widgets/background_widget.dart';
-import '../../widgets/custom_app_bar.dart';
-import '../../widgets/custom_drop_down_button.dart';
-import '../../widgets/custom_text_form_field.dart';
+import '../constants/color.dart';
+import '../database/expenses.dart';
+import '../widgets/background_widget.dart';
+import '../widgets/custom_app_bar.dart';
+import '../widgets/custom_drop_down_button.dart';
+import '../widgets/custom_text_form_field.dart';
 
 class ExpenseAddScreen extends StatefulWidget {
   const ExpenseAddScreen({super.key, this.editID});

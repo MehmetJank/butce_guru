@@ -3,15 +3,15 @@ import 'package:go_router/go_router.dart';
 import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
 
-import 'functions.dart';
-import '../../database/expenses.dart';
-import '../../database/revenues.dart';
-import '../../widgets/background_widget.dart';
-import '../../widgets/balance_card_widget.dart';
-import '../../widgets/blur_effect_widget.dart';
-import '../../widgets/check_empty_widget.dart';
-import '../../widgets/custom_plus_button.dart';
-import '../../widgets/transaction_widget.dart';
+import '../functions/calculate_net_amount.dart';
+import '../database/expenses.dart';
+import '../database/revenues.dart';
+import '../widgets/background_widget.dart';
+import '../widgets/balance_card_widget.dart';
+import '../widgets/blur_effect_widget.dart';
+import '../widgets/check_empty_widget.dart';
+import '../widgets/custom_plus_button.dart';
+import '../widgets/transaction_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
