@@ -30,7 +30,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
   final _paymentMethodController = TextEditingController();
   final _bankNameController = TextEditingController();
 
-  int? id;
+  int? id; //for editID
 
   @override
   void initState() {
@@ -62,28 +62,12 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
     newExpense.paymentMethod = paymentMethod;
     newExpense.bankName = bankName;
 
-    if (expenseAmount <= 0) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Amount must be a positive number'),
-        ),
-      );
-      return;
-    }
-    if (expenseTitle.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Gider Adi boş olamaz!'),
-        ),
-      );
-      return;
-    }
-
     isar.writeTxn(() => isar.expenses.put(newExpense));
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Expense added'),
+        content: Text('Gider Eklendi'),
+        backgroundColor: Colors.green,
       ),
     );
   }
@@ -92,7 +76,8 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
     if (_expenseTitleController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Expense title cannot be empty'),
+          content: Text('Gider başlığı boş olamaz!'),
+          backgroundColor: Colors.red,
         ),
       );
       return true;
@@ -102,7 +87,8 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
         double.parse(_expenseAmountController.text) <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Expense amount cannot be 0 or less'),
+          content: Text('Gider Tutarı boş veya 0 olamaz!'),
+          backgroundColor: Colors.red,
         ),
       );
       return true;
@@ -111,16 +97,19 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
   }
 
   void editExpense(int id) async {
-    final expense = await isar.expenses.where().idEqualTo(id).findFirst();
-    if (expense != null) {
-      _expenseTitleController.text = expense.expenseTitle ?? '';
-      _expenseDescriptionController.text = expense.expenseDescription ?? '';
-      _expenseAmountController.text = expense.expenseAmount.toString();
-      _expenseDateController.text = expense.expenseDate ?? '';
-      _expenseCategoryController.text = expense.expenseCategory ?? '';
-      _paymentMethodController.text = expense.paymentMethod ?? '';
-      _bankNameController.text = expense.bankName ?? '';
-    }
+    final expenseToEdit = await isar.expenses.get(id);
+
+    setState(() {
+      _expenseTitleController.text = expenseToEdit?.expenseTitle ?? '';
+      _expenseDescriptionController.text =
+          expenseToEdit?.expenseDescription ?? '';
+      _expenseAmountController.text =
+          expenseToEdit?.expenseAmount.toString() ?? '';
+      _expenseDateController.text = expenseToEdit?.expenseDate ?? '';
+      _expenseCategoryController.text = expenseToEdit?.expenseCategory ?? '';
+      _paymentMethodController.text = expenseToEdit?.paymentMethod ?? '';
+      _bankNameController.text = expenseToEdit?.bankName ?? '';
+    });
   }
 
   @override
@@ -161,7 +150,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                         ),
                         CustomTextFormField(
                           labelText: "Gider Açıklaması",
-                          hintText: "Giderinizi istediginiz sekilde açıklayın!",
+                          hintText: "Giderinizi istediğiniz şekilde açıklayın!",
                           icon: Icons.description,
                           keyboardType: TextInputType.text,
                           controller: _expenseDescriptionController,
@@ -210,6 +199,9 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                             'Eğlence',
                             'Spor',
                             'Ev',
+                            'Kişisel Bakım',
+                            'Kira',
+                            'Sigorta',
                             'Diğer',
                           ],
                           onChanged: (value) {
@@ -223,6 +215,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                             'Nakit',
                             'Kredi Kartı',
                             'Banka Kartı',
+                            'Havale',
                           ],
                           onChanged: (value) {
                             _paymentMethodController.text = value.toString();
@@ -233,7 +226,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                           hint: ('Seçiniz'),
                           items: const [
                             "Garanti",
-                            "Is",
+                            "İş",
                             "Yapi Kredi",
                             "Ziraat",
                             "Akbank",

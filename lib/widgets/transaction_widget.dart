@@ -62,7 +62,7 @@ Container transactionWidget(Map<String, dynamic> item) {
             color: item["type"] == "expenses"
                 ? Colors.red.shade900
                 : Colors.green.shade900,
-            fontSize: 17,
+            fontSize: 18,
           ),
         ),
       ],

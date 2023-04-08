@@ -18,7 +18,11 @@ class CustomPlusButton extends StatelessWidget {
             return CustomBlurEffect(
               child: AlertDialog(
                 title: const Center(
-                  child: Text('Add Transaction'),
+                  child: Text('Transfer Ekle',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      )),
                 ),
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -30,16 +34,34 @@ class CustomPlusButton extends StatelessWidget {
                           '/revenue/add/editID',
                         );
                       },
-                      child: const Text('Revenue'),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        minimumSize: const Size(75, 50),
+                      ),
+                      child: const Text(
+                        'Gelir Ekle',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5,
                     ),
                     const Text(
-                      'OR',
+                      'VEYA',
                       style: TextStyle(
                         color: Colors.black,
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
                       ),
+                    ),
+                    const SizedBox(
+                      width: 5,
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -48,13 +70,23 @@ class CustomPlusButton extends StatelessWidget {
                           '/expense/add/editID',
                         );
                       },
-                      child: const Text('Expense'),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        minimumSize: const Size(75, 50),
+                      ),
+                      child: const Text(
+                        'Gider Ekle',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
                     ),
                   ],
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text('Cancel'),
+                    child: const Text('İptal'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },

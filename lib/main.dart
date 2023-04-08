@@ -41,11 +41,12 @@ final _router = GoRouter(
         path: '/expense/add/:editID',
         pageBuilder: (context, state) {
           return customTransition(
-              child: ExpenseAddScreen(
-                editID: state.params['editID'],
-              ),
-              start: 1,
-              end: 0);
+            child: ExpenseAddScreen(
+              editID: state.params['editID'],
+            ),
+            start: 1,
+            end: 0,
+          );
         }),
     GoRoute(
       path: '/revenue/add/:editID',

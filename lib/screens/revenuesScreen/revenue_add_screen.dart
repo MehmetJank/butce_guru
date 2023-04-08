@@ -12,7 +12,7 @@ import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_text_form_field.dart';
 
 class RevenueAddScreen extends StatefulWidget {
-  const RevenueAddScreen({Key? key, this.editID}) : super(key: key);
+  const RevenueAddScreen({super.key, this.editID});
   final String? editID;
 
   @override
@@ -27,13 +27,12 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
   final _revenueSourceController = TextEditingController();
   final _revenueDateController = TextEditingController();
 
-  int? id;
+  int? id; //for editID
 
   @override
   void initState() {
     super.initState();
     isar = Provider.of<Isar>(context, listen: false);
-
     id = int.tryParse(widget.editID!);
     if (id != null) {
       editRevenue(id!);
@@ -60,7 +59,8 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Revenue added'),
+        content: Text('Gelir Eklendi'),
+        backgroundColor: Colors.green,
       ),
     );
   }
@@ -69,7 +69,8 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
     if (_revenueTitleController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Revenue title cannot be empty'),
+          content: Text('Gelir başlığı boş olamaz!'),
+          backgroundColor: Colors.red,
         ),
       );
       return true;
@@ -79,7 +80,8 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
         double.parse(_revenueAmountController.text) <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Revenue amount cannot be 0 or less'),
+          content: Text('Gelir Tutarı boş veya 0 olamaz!'),
+          backgroundColor: Colors.red,
         ),
       );
       return true;
@@ -112,7 +114,7 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
                 assetImage: 'assets/backgrounds/revenue_screen_background.jpg',
               ),
               CustomAppBar(
-                title: id == null ? 'Geliri Ekle' : 'Geliri Güncelle',
+                title: id == null ? 'Gelir Ekle' : 'Geliri Güncelle',
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 65, 20, 0),
@@ -220,12 +222,11 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
                                       : _revenueDateController.text,
                                 );
                           if (!mounted) return;
-
                           GoRouter.of(context).push('/HomeScreen');
                         }
                       },
                       child: Text(
-                        id == null ? 'Geliri Ekle' : 'Geliri Güncelle',
+                        id == null ? 'Gelir Ekle' : 'Geliri Güncelle',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,

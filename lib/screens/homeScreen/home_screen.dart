@@ -1,16 +1,17 @@
-import 'package:butce_guru/database/expenses.dart';
-import 'package:butce_guru/database/revenues.dart';
-import 'package:butce_guru/screens/homeScreen/functions.dart';
-import 'package:butce_guru/widgets/background_widget.dart';
-import 'package:butce_guru/widgets/balance_card_widget.dart';
-import 'package:butce_guru/widgets/blur_effect_widget.dart';
-import 'package:butce_guru/widgets/check_empty_widget.dart';
-import 'package:butce_guru/widgets/custom_plus_button.dart';
-import 'package:butce_guru/widgets/transaction_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
+
+import 'functions.dart';
+import '../../database/expenses.dart';
+import '../../database/revenues.dart';
+import '../../widgets/background_widget.dart';
+import '../../widgets/balance_card_widget.dart';
+import '../../widgets/blur_effect_widget.dart';
+import '../../widgets/check_empty_widget.dart';
+import '../../widgets/custom_plus_button.dart';
+import '../../widgets/transaction_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -153,9 +154,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: _listLoading
                                 ? const Center(
                                     child: SizedBox(
-                                        height: 50,
-                                        width: 50,
-                                        child: CircularProgressIndicator()),
+                                      height: 50,
+                                      width: 50,
+                                      child: CircularProgressIndicator(),
+                                    ),
                                   )
                                 : ListView.separated(
                                     separatorBuilder: (context, index) =>
@@ -224,11 +226,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             item["id"],
                                                             item["type"]);
                                                         Navigator.pop(context);
+
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          const SnackBar(
+                                                            backgroundColor:
+                                                                Colors.red,
+                                                            content: Text(
+                                                                'Veri Silindi'),
+                                                          ),
+                                                        );
                                                       },
                                                       child: const Text(
-                                                        'Delete',
+                                                        'Sil',
                                                         style: TextStyle(
-                                                            color: Colors.red),
+                                                          color: Colors.red,
+                                                        ),
                                                       ),
                                                     ),
                                                     TextButton(
@@ -237,14 +251,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             item["id"],
                                                             item["type"]);
                                                       },
-                                                      child: const Text('Edit'),
+                                                      child: const Text(
+                                                        'Düzenle',
+                                                        style: TextStyle(
+                                                            color: Colors.lime),
+                                                      ),
                                                     ),
                                                     TextButton(
                                                       onPressed: () {
                                                         Navigator.pop(context);
                                                       },
                                                       child: const Text(
-                                                        'Ok',
+                                                        'Kapat',
                                                       ),
                                                     ),
                                                   ],
