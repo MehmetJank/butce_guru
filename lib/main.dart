@@ -5,9 +5,9 @@ import 'package:isar/isar.dart';
 
 import 'database/expenses.dart';
 import 'database/revenues.dart';
-import 'screens/expense_add_screen.dart';
+import 'screens/expense_screen.dart';
 import 'screens/home_screen.dart';
-import 'screens/revenue_add_screen.dart';
+import 'screens/revenue_screen.dart';
 import 'widgets/custom_transition.dart';
 
 void main() async {
@@ -40,7 +40,7 @@ final _router = GoRouter(
         path: '/expense/add/:editID',
         pageBuilder: (context, state) {
           return customTransition(
-            child: ExpenseAddScreen(
+            child: ExpenseScreen(
               editID: state.params['editID'],
             ),
             start: 1,
@@ -51,11 +51,12 @@ final _router = GoRouter(
       path: '/revenue/add/:editID',
       pageBuilder: (context, state) {
         return customTransition(
-            child: RevenueAddScreen(
-              editID: state.params['editID'],
-            ),
-            start: -1,
-            end: 0);
+          child: RevenueScreen(
+            editID: state.params['editID'],
+          ),
+          start: -1,
+          end: 0,
+        );
       },
     ),
   ],

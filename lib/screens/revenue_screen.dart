@@ -11,15 +11,15 @@ import '../widgets/background_widget.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_text_form_field.dart';
 
-class RevenueAddScreen extends StatefulWidget {
-  const RevenueAddScreen({super.key, this.editID});
+class RevenueScreen extends StatefulWidget {
+  const RevenueScreen({super.key, this.editID});
   final String? editID;
 
   @override
-  State<RevenueAddScreen> createState() => _RevenueAddScreenState();
+  State<RevenueScreen> createState() => _RevenueScreenState();
 }
 
-class _RevenueAddScreenState extends State<RevenueAddScreen> {
+class _RevenueScreenState extends State<RevenueScreen> {
   late final Isar isar;
   final _revenueTitleController = TextEditingController();
   final _revenueDescriptionController = TextEditingController();
@@ -176,7 +176,9 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
                         } else {
                           setState(
                             () {
-                              _revenueDateController.text = "";
+                              _revenueDateController.text =
+                                  DateFormat("dd/MM/yyyy HH:mm:ss")
+                                      .format(DateTime.now());
                             },
                           );
                         }

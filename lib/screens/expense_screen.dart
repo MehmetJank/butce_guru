@@ -12,15 +12,15 @@ import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drop_down_button.dart';
 import '../widgets/custom_text_form_field.dart';
 
-class ExpenseAddScreen extends StatefulWidget {
-  const ExpenseAddScreen({super.key, this.editID});
+class ExpenseScreen extends StatefulWidget {
+  const ExpenseScreen({super.key, this.editID});
   final String? editID;
 
   @override
-  State<ExpenseAddScreen> createState() => _ExpenseAddScreenState();
+  State<ExpenseScreen> createState() => _ExpenseScreenState();
 }
 
-class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
+class _ExpenseScreenState extends State<ExpenseScreen> {
   late final Isar isar;
   final _expenseTitleController = TextEditingController();
   final _expenseDescriptionController = TextEditingController();
@@ -157,7 +157,8 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                         ),
                         CustomTextFormField(
                           labelText: "Gider Tarihi",
-                          hintText: "Gider tarihini girin!",
+                          hintText:
+                              "Gider Tarihini Girin Bugunun Tarihini Girmek Icin Bos Birakin",
                           icon: Icons.date_range,
                           keyboardType: TextInputType.datetime,
                           controller: _expenseDateController,

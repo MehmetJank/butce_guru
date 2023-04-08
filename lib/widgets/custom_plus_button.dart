@@ -18,11 +18,13 @@ class CustomPlusButton extends StatelessWidget {
             return CustomBlurEffect(
               child: AlertDialog(
                 title: const Center(
-                  child: Text('Transfer Ekle',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      )),
+                  child: Text(
+                    'Transfer Ekle',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
                 ),
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
