@@ -102,10 +102,10 @@ class _HomeScreenState extends State<HomeScreen> {
   editTransaction(int id, String type) async {
     if (type == "expenses") {
       Navigator.pop(context);
-      context.push('/expense/add/$id');
+      context.push('/expense/$id');
     } else if (type == "revenues") {
       Navigator.pop(context);
-      context.push('/revenue/add/$id');
+      context.push('/revenue/$id');
     }
   }
 

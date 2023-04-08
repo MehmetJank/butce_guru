@@ -33,7 +33,7 @@ class CustomPlusButton extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pop();
                         context.push(
-                          '/revenue/add/editID',
+                          '/revenue/editID',
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -69,7 +69,7 @@ class CustomPlusButton extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pop();
                         context.push(
-                          '/expense/add/editID',
+                          '/expense/editID',
                         );
                       },
                       style: ElevatedButton.styleFrom(

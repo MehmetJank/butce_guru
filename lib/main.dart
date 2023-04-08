@@ -37,7 +37,7 @@ final _router = GoRouter(
       ),
     ),
     GoRoute(
-        path: '/expense/add/:editID',
+        path: '/expense/:editID',
         pageBuilder: (context, state) {
           return customTransition(
             child: ExpenseScreen(
@@ -48,7 +48,7 @@ final _router = GoRouter(
           );
         }),
     GoRoute(
-      path: '/revenue/add/:editID',
+      path: '/revenue/:editID',
       pageBuilder: (context, state) {
         return customTransition(
           child: RevenueScreen(
