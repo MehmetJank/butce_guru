@@ -1,16 +1,16 @@
-import 'package:butce_guru/database/expenses.dart';
-import 'package:butce_guru/widgets/background_widget.dart';
-import 'package:butce_guru/widgets/custom_app_bar.dart';
-import 'package:butce_guru/widgets/custom_drop_down_button.dart';
-import 'package:butce_guru/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
-import 'package:provider/provider.dart';
 
 import '../../constants/color.dart';
+import '../../database/expenses.dart';
+import '../../widgets/background_widget.dart';
+import '../../widgets/custom_app_bar.dart';
+import '../../widgets/custom_drop_down_button.dart';
+import '../../widgets/custom_text_form_field.dart';
 
 class ExpenseAddScreen extends StatefulWidget {
   const ExpenseAddScreen({super.key, this.editID});
@@ -135,7 +135,6 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
               ),
               CustomAppBar(
                 title: id == null ? "Gider Ekle" : "Gider Güncelle",
-                onPressBack: '/homeScreen',
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 65, 20, 0),
@@ -149,7 +148,6 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                           icon: Icons.label,
                           keyboardType: TextInputType.text,
                           controller: _expenseTitleController,
-                          onChanged: (value) {},
                         ),
                         CustomTextFormField(
                           labelText: "Gider Tutarı",
@@ -160,7 +158,6 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                             FilteringTextInputFormatter.digitsOnly
                           ],
                           controller: _expenseAmountController,
-                          onChanged: (value) {},
                         ),
                         CustomTextFormField(
                           labelText: "Gider Açıklaması",
@@ -168,7 +165,6 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                           icon: Icons.description,
                           keyboardType: TextInputType.text,
                           controller: _expenseDescriptionController,
-                          onChanged: (value) {},
                         ),
                         CustomTextFormField(
                           labelText: "Gider Tarihi",

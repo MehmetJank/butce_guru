@@ -7,10 +7,7 @@ class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     Key? key,
     required this.title,
-    required this.onPressBack,
   }) : super(key: key);
-
-  final String onPressBack;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +26,7 @@ class CustomAppBar extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                GoRouter.of(context).go(onPressBack);
+                context.pop();
               },
               icon: const Icon(Icons.arrow_back, color: Colors.white),
             ),

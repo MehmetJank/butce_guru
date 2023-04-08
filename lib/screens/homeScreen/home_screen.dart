@@ -35,7 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     isar = Provider.of<Isar>(context, listen: false);
-
     listTransactionsAndAddToList();
     _calculateNetAmount();
   }

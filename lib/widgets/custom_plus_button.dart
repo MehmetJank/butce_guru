@@ -1,6 +1,7 @@
-import 'package:butce_guru/widgets/blur_effect_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import 'blur_effect_widget.dart';
 
 class CustomPlusButton extends StatelessWidget {
   const CustomPlusButton({
@@ -25,7 +26,7 @@ class CustomPlusButton extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pop();
-                        GoRouter.of(context).go(
+                        context.push(
                           '/revenue/add/editID',
                         );
                       },
@@ -43,7 +44,7 @@ class CustomPlusButton extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pop();
-                        GoRouter.of(context).go(
+                        context.push(
                           '/expense/add/editID',
                         );
                       },

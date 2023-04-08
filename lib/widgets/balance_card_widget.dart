@@ -24,7 +24,7 @@ class _BalanceCardState extends State<BalanceCard> {
     return Padding(
       padding: const EdgeInsets.all(6),
       child: Container(
-        height: 200,
+        height: 230,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Colors.white24.withOpacity(0.4),
@@ -40,6 +40,27 @@ class _BalanceCardState extends State<BalanceCard> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              //Next update will be here
+              // Row(
+              //   textDirection: TextDirection.rtl,
+              //   children: [
+              //     IconButton(
+              //       iconSize: 30,
+              //       icon: const Icon(
+              //         Icons.insert_chart,
+              //         color: Colors.green,
+              //       ),
+              //       onPressed: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) => const ChartSlider(),
+              //           ),
+              //         );
+              //       },
+              //     ),
+              //   ],
+              // ),
               const Text(
                 'V A R L I K L A R',
                 style: TextStyle(color: Colors.black87, fontSize: 20),

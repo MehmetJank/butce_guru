@@ -11,7 +11,7 @@ Container transactionWidget(Map<String, dynamic> item) {
         BoxShadow(
           color: Colors.black.withOpacity(0.4),
           blurRadius: 10,
-          spreadRadius: 2,
+          spreadRadius: 3,
           offset: const Offset(0, 1),
         ),
       ],

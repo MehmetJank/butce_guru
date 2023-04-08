@@ -1,14 +1,15 @@
-import 'package:butce_guru/constants/color.dart';
-import 'package:butce_guru/database/revenues.dart';
-import 'package:butce_guru/widgets/background_widget.dart';
-import 'package:butce_guru/widgets/custom_app_bar.dart';
-import 'package:butce_guru/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
-import 'package:provider/provider.dart';
+
+import '../../constants/color.dart';
+import '../../database/revenues.dart';
+import '../../widgets/background_widget.dart';
+import '../../widgets/custom_app_bar.dart';
+import '../../widgets/custom_text_form_field.dart';
 
 class RevenueAddScreen extends StatefulWidget {
   const RevenueAddScreen({Key? key, this.editID}) : super(key: key);
@@ -112,7 +113,6 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
               ),
               CustomAppBar(
                 title: id == null ? 'Geliri Ekle' : 'Geliri Güncelle',
-                onPressBack: "/",
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 65, 20, 0),
@@ -124,7 +124,6 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
                       icon: Icons.label,
                       keyboardType: TextInputType.text,
                       controller: _revenueTitleController,
-                      onChanged: (value) {},
                     ),
                     CustomTextFormField(
                       labelText: "Gelir Tutarı",
@@ -135,7 +134,6 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
                         FilteringTextInputFormatter.digitsOnly,
                       ],
                       controller: _revenueAmountController,
-                      onChanged: (value) {},
                     ),
                     CustomTextFormField(
                       labelText: "Gelir Açıklaması",
@@ -143,7 +141,6 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
                       icon: Icons.description,
                       keyboardType: TextInputType.text,
                       controller: _revenueDescriptionController,
-                      onChanged: (value) {},
                     ),
                     CustomTextFormField(
                       labelText: "Gelir Kaynağı",
@@ -151,7 +148,6 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
                       icon: Icons.source,
                       keyboardType: TextInputType.text,
                       controller: _revenueSourceController,
-                      onChanged: (value) {},
                     ),
                     CustomTextFormField(
                       labelText: "Gelir Tarihi",
@@ -160,7 +156,6 @@ class _RevenueAddScreenState extends State<RevenueAddScreen> {
                       icon: Icons.date_range,
                       keyboardType: TextInputType.datetime,
                       controller: _revenueDateController,
-                      onChanged: (value) {},
                       onTap: (dynamic) async {
                         DateTime? pickedDate = await showDatePicker(
                           context: context,

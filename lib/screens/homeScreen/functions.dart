@@ -1,6 +1,7 @@
-import 'package:butce_guru/database/expenses.dart';
-import 'package:butce_guru/database/revenues.dart';
 import 'package:isar/isar.dart';
+
+import '../../database/expenses.dart';
+import '../../database/revenues.dart';
 
 Future<double> calculateNetAmount(Isar isar) async {
   double totalRevenueAmount = await getTotalRevenueAmount(isar);
