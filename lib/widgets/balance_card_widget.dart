@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../constants/color.dart';
+import '../functions/check_connection.dart';
+
 class BalanceCard extends StatefulWidget {
   final String balance;
   final String income;
@@ -40,30 +43,38 @@ class _BalanceCardState extends State<BalanceCard> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              //Next update will be here
-              // Row(
-              //   textDirection: TextDirection.rtl,
-              //   children: [
-              //     IconButton(
-              //       iconSize: 30,
-              //       icon: const Icon(
-              //         Icons.insert_chart,
-              //         color: Colors.green,
-              //       ),
-              //       onPressed: () {
-              //         Navigator.push(
-              //           context,
-              //           MaterialPageRoute(
-              //             builder: (context) => const ChartSlider(),
-              //           ),
-              //         );
-              //       },
-              //     ),
-              //   ],
-              // ),
-              const Text(
-                'V A R L I K L A R',
-                style: TextStyle(color: Colors.black87, fontSize: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12.0),
+                    child: IconButton(
+                      onPressed: () {
+                        checkConnectionStatus().then((status) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                              status,
+                              style: const TextStyle(color: Colors.black87),
+                            ),
+                            duration: const Duration(seconds: 2),
+                            backgroundColor: AppColors.primaryColor,
+                          ));
+                        });
+                      },
+                      icon: Icon(
+                        Icons.wifi,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ),
+                  const Text(
+                    'V A R L I K L A R',
+                    style: TextStyle(color: Colors.black87, fontSize: 20),
+                  ),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                ],
               ),
               widget.amountLoading
                   ? const Center(child: CircularProgressIndicator())

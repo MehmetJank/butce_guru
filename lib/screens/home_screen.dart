@@ -10,7 +10,7 @@ import '../widgets/background_widget.dart';
 import '../widgets/balance_card_widget.dart';
 import '../widgets/blur_effect_widget.dart';
 import '../widgets/check_empty_widget.dart';
-import '../widgets/custom_plus_button.dart';
+import '../widgets/custom_floating_buttons.dart';
 import '../widgets/transaction_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -286,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // const CustomPlusButton(),
           ],
         ),
-        floatingActionButton: const CustomPlusButton(),
+        floatingActionButton: const CustomFloatingButton(),
         floatingActionButtonLocation:
             FloatingActionButtonLocation.miniCenterFloat,
       ),

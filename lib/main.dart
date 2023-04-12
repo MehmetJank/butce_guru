@@ -5,6 +5,7 @@ import 'package:isar/isar.dart';
 
 import 'database/expenses.dart';
 import 'database/revenues.dart';
+import 'screens/chart_slider_screen.dart';
 import 'screens/expense_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/revenue_screen.dart';
@@ -55,6 +56,16 @@ final _router = GoRouter(
             editID: state.params['editID'],
           ),
           start: -1,
+          end: 0,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/charts',
+      pageBuilder: (context, state) {
+        return customTransition(
+          child: const ChartSlider(),
+          start: 1,
           end: 0,
         );
       },
