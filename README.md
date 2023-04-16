@@ -25,13 +25,13 @@ Uygulama, eklenen gelir ve giderleri otomatik olarak toplar ve sonucu net bütç
 
 ### Tarih Seçme Ekranı
 
-![Range Picker](screenshots/range_picker.png)
+![Range Picker](screenshots/range_picker_screen)
 
 ### Grafikler
 
 ![Amount Chrat](screenshots/amount_chart.png)
 ![Payment Chart](screenshots/payment_method_chart.png)
-![Bank Name Chart](screenshots/bank_name_chart.png)
+![Bank Name Chart](screenshots/bank_name_method_chart.png)
 ![Category Chart](screenshots/category_chart.png)
 
 ### Internet Bağlantısı Kontrol
