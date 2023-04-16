@@ -25,7 +25,7 @@ Uygulama, eklenen gelir ve giderleri otomatik olarak toplar ve sonucu net bütç
 
 ### Tarih Seçme Ekranı
 
-![Range Picker](screenshots/range_picker_screen)
+![Range Picker](screenshots/range_picker_screen.png)
 
 ### Grafikler
 
