@@ -11,7 +11,6 @@ Yakın gelecekte, aylık bütçe hedefleri, raporlar ve grafikler gibi yeni öze
 
 ### Ana Ekran 
 ![Varlıklar Ekranı](https://user-images.githubusercontent.com/92443831/230736930-b4c187a5-b194-4a5a-9379-7c6d6862bcad.png)
-https://github.com/MehmetJank/butce_guru/blob/main/screenshots/Ana%20Ekran.png
 
 ### Gelir Ekleme Ekranı
 ![Gelir Ekle](https://user-images.githubusercontent.com/92443831/230736934-d589e104-4de2-4a53-b053-a15e063004e7.png)
