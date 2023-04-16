@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -7,7 +8,9 @@ import '../../../constants/color.dart';
 import '/database/expenses.dart';
 
 class BankNameMethodChart extends StatefulWidget {
-  const BankNameMethodChart({super.key});
+  const BankNameMethodChart({super.key, this.startDate, this.endDate});
+  final DateTime? startDate;
+  final DateTime? endDate;
 
   @override
   State<BankNameMethodChart> createState() => _BankNameMethodChartState();
@@ -17,12 +20,18 @@ class _BankNameMethodChartState extends State<BankNameMethodChart> {
   late final Isar isar;
   List<_ChartData> data = [];
 
+  String formatDateTime(DateTime dateTime) {
+    return DateFormat('dd/MM/yyyy HH:mm:ss').format(dateTime);
+  }
+
   @override
   void initState() {
     super.initState();
     isar = Provider.of<Isar>(context, listen: false);
-    bankName();
-    bankName().then((bankMap) {
+    bankName(
+      formatDateTime(widget.startDate!),
+      formatDateTime(widget.endDate!),
+    ).then((bankMap) {
       final List<_ChartData> chartData = [];
       bankMap.forEach((key, value) {
         chartData.add(_ChartData(key, value));
@@ -33,8 +42,17 @@ class _BankNameMethodChartState extends State<BankNameMethodChart> {
     });
   }
 
-  Future<Map<String, double>> bankName() async {
-    final bank = await isar.expenses.where().findAll();
+  Future<Map<String, double>> bankName(String startDate, String endDate) async {
+    final bank = await isar.expenses
+        .where()
+        .filter()
+        .expenseDateBetween(
+          startDate.toString(),
+          endDate.toString(),
+          includeLower: true,
+          includeUpper: true,
+        )
+        .findAll();
     final bankMap = <String, double>{};
     for (final bank in bank) {
       final bankName = bank.bankName ?? 'Girilmemiş';
@@ -51,7 +69,10 @@ class _BankNameMethodChartState extends State<BankNameMethodChart> {
       body: Container(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
         child: FutureBuilder<Map<String, double>>(
-          future: bankName(),
+          future: bankName(
+            formatDateTime(widget.startDate!),
+            formatDateTime(widget.endDate!),
+          ),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());

@@ -123,7 +123,7 @@ class _ExpenseScreenState extends State<ExpenseScreen> {
                 assetImage: "assets/backgrounds/expense_screen_background.jpg",
               ),
               CustomAppBar(
-                title: id == null ? "Gider Ekle" : "Gider Güncelle",
+                title: id == null ? "Gider Ekle" : "Gideri Güncelle",
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 65, 20, 0),

@@ -6,6 +6,7 @@ import 'package:isar/isar.dart';
 import 'database/expenses.dart';
 import 'database/revenues.dart';
 import 'screens/chart_slider_screen.dart';
+import 'screens/date_picker_screen.dart';
 import 'screens/expense_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/revenue_screen.dart';
@@ -61,10 +62,25 @@ final _router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/charts',
+      path: '/datePicker',
       pageBuilder: (context, state) {
         return customTransition(
-          child: const ChartSlider(),
+          child: DatePicker(),
+          start: 1,
+          end: 0,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/charts/:startDate/:endDate',
+      pageBuilder: (context, state) {
+        final startDate = DateTime.parse(state.params['startDate']!);
+        final endDate = DateTime.parse(state.params['endDate']!);
+        return customTransition(
+          child: ChartSlider(
+            startDate: startDate,
+            endDate: endDate,
+          ),
           start: 1,
           end: 0,
         );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -6,7 +7,10 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '/database/expenses.dart';
 
 class PaymentMethodChart extends StatefulWidget {
-  const PaymentMethodChart({Key? key}) : super(key: key);
+  const PaymentMethodChart({Key? key, this.startDate, this.endDate})
+      : super(key: key);
+  final DateTime? startDate;
+  final DateTime? endDate;
 
   @override
   State<PaymentMethodChart> createState() => _PaymentMethodChartState();
@@ -16,11 +20,18 @@ class _PaymentMethodChartState extends State<PaymentMethodChart> {
   late final Isar isar;
   List<PieData> data = [];
 
+  String formatDateTime(DateTime dateTime) {
+    return DateFormat('dd/MM/yyyy HH:mm:ss').format(dateTime);
+  }
+
   @override
   void initState() {
     super.initState();
     isar = Provider.of<Isar>(context, listen: false);
-    calculatePaymentsByMethod(isar).then((paymentMap) {
+    calculatePaymentsByMethod(
+      formatDateTime(widget.startDate!),
+      formatDateTime(widget.endDate!),
+    ).then((paymentMap) {
       final List<PieData> chartData = [];
       paymentMap.forEach((key, value) {
         chartData.add(PieData(key, value));
@@ -35,8 +46,18 @@ class _PaymentMethodChartState extends State<PaymentMethodChart> {
     });
   }
 
-  Future<Map<String, double>> calculatePaymentsByMethod(Isar isar) async {
-    final payments = await isar.expenses.where().findAll();
+  Future<Map<String, double>> calculatePaymentsByMethod(
+      String startDate, String endDate) async {
+    final payments = await isar.expenses
+        .where()
+        .filter()
+        .expenseDateBetween(
+          startDate.toString(),
+          endDate.toString(),
+          includeLower: true,
+          includeUpper: true,
+        )
+        .findAll();
     final paymentMap = <String, double>{};
     for (final payment in payments) {
       final paymentMethod = payment.paymentMethod ?? '';

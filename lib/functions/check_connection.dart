@@ -1,20 +1,49 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
 
-Future<String> checkConnectionStatus() async {
-  final connectivityResult = await (Connectivity().checkConnectivity());
+class ConnectionInfo {
+  String? status;
+  Icon? icon;
+
+  ConnectionInfo({this.status, this.icon});
+}
+
+Future<ConnectionInfo> getConnectionInfo() async {
+  final connectivityResult = await Connectivity().checkConnectivity();
   if (connectivityResult == ConnectivityResult.mobile) {
-    return 'Mobil veri kullanıyor';
+    return ConnectionInfo(
+      status: 'Mobil veri kullanıyor',
+      icon: const Icon(Icons.cell_tower),
+    );
   } else if (connectivityResult == ConnectivityResult.wifi) {
-    return 'Wi-Fi kullanıyor';
+    return ConnectionInfo(
+      status: 'Wi-Fi kullanıyor',
+      icon: const Icon(Icons.wifi),
+    );
   } else if (connectivityResult == ConnectivityResult.ethernet) {
-    return 'Ethernet kullanıyor';
+    return ConnectionInfo(
+      status: 'Ethernet kullanıyor',
+      icon: const Icon(Icons.settings_ethernet),
+    );
   } else if (connectivityResult == ConnectivityResult.vpn) {
-    return 'VPN kullanıyor';
+    return ConnectionInfo(
+      status: 'VPN kullanıyor',
+      icon: const Icon(Icons.vpn_key),
+    );
   } else if (connectivityResult == ConnectivityResult.bluetooth) {
-    return 'Bluetooth kullanıyor';
+    return ConnectionInfo(
+      status: 'Bluetooth kullanıyor',
+      icon: const Icon(Icons.bluetooth_audio),
+    );
   } else if (connectivityResult == ConnectivityResult.none) {
-    return 'Herhangi bir ağa bağlı değil';
+    return ConnectionInfo(
+      status: 'Herhangi bir ağa bağlı değil',
+      icon: const Icon(Icons.signal_wifi_connected_no_internet_4),
+    );
   } else {
-    return 'Bağlantı durumu bilinmiyor';
+    return ConnectionInfo(
+      status: 'Bağlantı durumu bilinmiyor',
+      icon: const Icon(Icons.device_unknown),
+    );
   }
 }

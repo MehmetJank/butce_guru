@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
           "title": expense.expenseTitle,
           "amount": expense.expenseAmount,
           "description": expense.expenseDescription,
-          "date": expense.expenseDate,
+          "date": expense.expenseDate.toString(),
           "category": expense.expenseCategory,
           "payment": expense.paymentMethod,
           "bankName": expense.bankName,
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
           "title": revenue.revenueTitle,
           "amount": revenue.revenueAmount,
           "description": revenue.revenueDescription,
-          "date": revenue.revenueDate,
+          "date": revenue.revenueDate.toString(),
           "source": revenue.revenueSource,
         },
       );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -8,7 +9,9 @@ import '/database/expenses.dart';
 import '/database/revenues.dart';
 
 class AmountChart extends StatefulWidget {
-  const AmountChart({super.key});
+  const AmountChart({super.key, this.startDate, this.endDate});
+  final DateTime? startDate;
+  final DateTime? endDate;
 
   @override
   State<AmountChart> createState() => _AmountChartState();
@@ -17,16 +20,42 @@ class AmountChart extends StatefulWidget {
 class _AmountChartState extends State<AmountChart> {
   late final Isar isar;
 
+  String formatDateTime(DateTime dateTime) {
+    return DateFormat('dd/MM/yyyy HH:mm:ss').format(dateTime);
+  }
+
   @override
   void initState() {
     super.initState();
     isar = Provider.of<Isar>(context, listen: false);
-    calculateAmount();
+    calculateAmount(
+      formatDateTime(widget.startDate!),
+      formatDateTime(widget.endDate!),
+    );
   }
 
-  Future<Map<String, double>> calculateAmount() async {
-    final expenses = await isar.expenses.where().findAll();
-    final revenues = await isar.revenues.where().findAll();
+  Future<Map<String, double>> calculateAmount(
+      String startDate, String endDate) async {
+    final expenses = await isar.expenses
+        .where()
+        .filter()
+        .expenseDateBetween(
+          startDate.toString(),
+          endDate.toString(),
+          includeLower: true,
+          includeUpper: true,
+        )
+        .findAll();
+    final revenues = await isar.revenues
+        .where()
+        .filter()
+        .revenueDateBetween(
+          startDate.toString(),
+          endDate.toString(),
+          includeLower: true,
+          includeUpper: true,
+        )
+        .findAll();
     final amountMap = <String, double>{};
     for (final expense in expenses) {
       final date = expense.expenseDate ?? '';
@@ -36,6 +65,7 @@ class _AmountChartState extends State<AmountChart> {
       final date = revenue.revenueDate ?? '';
       amountMap[date] = (amountMap[date] ?? 0) + (revenue.revenueAmount ?? 0);
     }
+
     return amountMap;
   }
 
@@ -46,7 +76,10 @@ class _AmountChartState extends State<AmountChart> {
       body: Container(
         padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
         child: FutureBuilder<Map<String, double>>(
-          future: calculateAmount(),
+          future: calculateAmount(
+            formatDateTime(widget.startDate!),
+            formatDateTime(widget.endDate!),
+          ),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(

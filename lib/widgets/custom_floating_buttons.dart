@@ -30,7 +30,7 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton> {
           ),
           ActionButton(
             onPressed: () {
-              context.push('/charts');
+              context.push('/datePicker');
             },
             tooltip: 'Grafikler',
             color: Colors.blue,

@@ -22,6 +22,21 @@ class BalanceCard extends StatefulWidget {
 }
 
 class _BalanceCardState extends State<BalanceCard> {
+  late String? _status;
+  late Icon? _icon;
+
+  @override
+  void initState() {
+    super.initState();
+    _icon = const Icon(Icons.device_unknown);
+    getConnectionInfo().then((status) {
+      setState(() {
+        _icon = status.icon;
+        _status = status.status;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,23 +64,27 @@ class _BalanceCardState extends State<BalanceCard> {
                   Padding(
                     padding: const EdgeInsets.only(left: 12.0),
                     child: IconButton(
-                      onPressed: () {
-                        checkConnectionStatus().then((status) {
+                        onPressed: () {
+                          getConnectionInfo().then((status) {
+                            setState(() {
+                              _icon = status.icon;
+                              _status = status.status;
+                            });
+                          });
+
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text(
-                              status,
+                              _status!,
                               style: const TextStyle(color: Colors.black87),
                             ),
                             duration: const Duration(seconds: 2),
                             backgroundColor: AppColors.primaryColor,
                           ));
-                        });
-                      },
-                      icon: Icon(
-                        Icons.wifi,
-                        color: AppColors.primaryColor,
-                      ),
-                    ),
+                        },
+                        icon: Icon(
+                          _icon!.icon,
+                          color: AppColors.primaryColor,
+                        )),
                   ),
                   const Text(
                     'V A R L I K L A R',

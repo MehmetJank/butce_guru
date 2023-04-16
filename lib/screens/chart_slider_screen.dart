@@ -18,7 +18,9 @@ class MouseDraggableScrollBehavior extends MaterialScrollBehavior {
 }
 
 class ChartSlider extends StatefulWidget {
-  const ChartSlider({super.key});
+  const ChartSlider({super.key, this.startDate, this.endDate});
+  final DateTime? startDate;
+  final DateTime? endDate;
 
   @override
   State<ChartSlider> createState() => _ChartSliderState();
@@ -49,7 +51,7 @@ class _ChartSliderState extends State<ChartSlider> {
                     child: ScrollConfiguration(
                       behavior: MouseDraggableScrollBehavior(),
                       child: PageView.builder(
-                        itemCount: 4, // toplam sayfa sayısı
+                        itemCount: 3, // toplam sayfa sayısı
                         controller: _pageController,
                         scrollDirection: Axis.horizontal,
 
@@ -58,17 +60,35 @@ class _ChartSliderState extends State<ChartSlider> {
                             _currentPageIndex = index;
                           });
                         },
-
                         itemBuilder: (context, index) {
                           if (index == 0) {
-                            return const AmountChart();
+                            return AmountChart(
+                              startDate: widget.startDate,
+                              endDate: widget.endDate,
+                            );
                           } else if (index == 1) {
-                            return const PaymentMethodChart();
+                            return PaymentMethodChart(
+                              startDate: widget.startDate,
+                              endDate: widget.endDate,
+                            );
                           } else if (index == 2) {
-                            return const CategoryChart();
-                          } else if (index == 3) {
-                            return const BankNameMethodChart();
-                          } else {
+                            // return CategoryChart(
+                            //   startDate: widget.startDate,
+                            //   endDate: widget.endDate,
+                            // );
+                            return BankNameMethodChart(
+                              startDate: widget.startDate,
+                              endDate: widget.endDate,
+                            );
+                          }
+                          // else if (index == 3) {
+                          //on build
+                          //     // return CategoryChart(
+                          //   startDate: widget.startDate,
+                          //   endDate: widget.endDate,
+                          // );
+                          // }
+                          else {
                             return const Center(
                               child: Text('No chart'),
                             );
@@ -87,8 +107,8 @@ class _ChartSliderState extends State<ChartSlider> {
                         _buildDotIndicator(1),
                         const SizedBox(width: 5),
                         _buildDotIndicator(2),
-                        const SizedBox(width: 5),
-                        _buildDotIndicator(3),
+                        // const SizedBox(width: 5),
+                        // _buildDotIndicator(3),
                       ],
                     ),
                   ),
