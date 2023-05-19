@@ -5,7 +5,6 @@ import '../../widgets/background_widget.dart';
 import '../../widgets/custom_app_bar.dart';
 import 'charts/amount_chart.dart';
 import 'charts/bank_name_method_chart.dart';
-import 'charts/category_chart.dart';
 import 'charts/payment_method_chart.dart';
 
 class MouseDraggableScrollBehavior extends MaterialScrollBehavior {

@@ -25,6 +25,7 @@ void main() async {
 Future<Isar> openIsar() async {
   final isar = await Isar.open(
     [RevenuesSchema, ExpensesSchema],
+    directory: '',
   );
   return isar;
 }
