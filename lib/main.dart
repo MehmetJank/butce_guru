@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'database/expenses.dart';
 import 'database/revenues.dart';
@@ -13,6 +14,8 @@ import 'screens/revenue_screen.dart';
 import 'widgets/custom_transition.dart';
 
 void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Ensure Flutter binding is initialized
   final isar = await openIsar();
   runApp(
     Provider.value(
@@ -22,10 +25,20 @@ void main() async {
   );
 }
 
+// Future<Isar> openIsar() async {
+//   final isar = await Isar.open(
+//     relaxedDurability: true,
+//     [RevenuesSchema, ExpensesSchema],
+//     directory: '',
+//   );
+//   return isar;
+// }
+
 Future<Isar> openIsar() async {
+  final directory = await getApplicationDocumentsDirectory();
   final isar = await Isar.open(
     [RevenuesSchema, ExpensesSchema],
-    directory: '',
+    directory: directory.path,
   );
   return isar;
 }

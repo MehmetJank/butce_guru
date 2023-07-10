@@ -82,11 +82,11 @@ class _PaymentMethodChartState extends State<PaymentMethodChart> {
               color: Colors.white,
             ),
           ),
-          legend: Legend(
+          legend: const Legend(
             isVisible: true,
             overflowMode: LegendItemOverflowMode.wrap,
             position: LegendPosition.bottom,
-            textStyle: const TextStyle(
+            textStyle: TextStyle(
               color: Colors.white,
             ),
           ),
